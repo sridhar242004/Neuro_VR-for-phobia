@@ -1,814 +1,1985 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeuroVR Therapy - Revolutionary Phobia Treatment</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NeuroVR Therapy — Neural Cartography</title>
+<meta name="description" content="NeuroVR Therapy uses real-time biofeedback and VR exposure to remap the nervous system's response to fear.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F8FAFC'/%3E%3Ccircle cx='16' cy='16' r='11' fill='none' stroke='%230EA5E9' stroke-width='1.3'/%3E%3Ccircle cx='16' cy='16' r='6' fill='none' stroke='%2338BDF8' stroke-width='1.3'/%3E%3Ccircle cx='16' cy='16' r='2' fill='%230F172A'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════════════════════════
+   TOKENS — CRYO-NEURAL THEME (White + Sky Blue)
+   ════════════════════════════════════════════════════════════ */
+:root{
+  --void:#EDE8E3;
+  --void-deep:#DDD5CC;
+  --surface:#F5F2EE;
+  --surface-raised:#FAFAF7;
+  --surface-glass:rgba(245,242,238,0.72);
+  --text:#1A1612;
+  --text-soft:#5A5048;
+  --text-faint:#A89E94;
+  --accent:#2E8B57;
+  --accent-deep:#1A5C3A;
+  --accent-glow:rgba(46,139,87,0.20);
+  --accent-2:#4CAF7C;
+  --accent-2-glow:rgba(76,175,124,0.20);
+  --accent-3:#7DD4A0;
+  --accent-3-glow:rgba(125,212,160,0.20);
+  --accent-4:#C8EDD8;
+  --alert:#C75B39;
+  --alert-deep:#8B3A22;
+  --alert-glow:rgba(199,91,57,0.20);
+  --neural:#2C241B;
+  --neural-glow:rgba(44,36,27,0.20);
+  --border:rgba(26,22,18,0.06);
+  --border-strong:rgba(26,22,18,0.12);
+  --frost:linear-gradient(180deg, rgba(245,242,238,0) 0%, rgba(46,139,87,0.06) 100%);
+  --aurora:linear-gradient(135deg, rgba(46,139,87,0.06), rgba(44,36,27,0.04), rgba(76,175,124,0.05));
+  --font-display:"Inter",system-ui,sans-serif;
+  --font-body:"Inter",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono",monospace;
+  --container:1320px;
+  --gutter:clamp(20px,4vw,64px);
+  --radius:16px;
+  --radius-sm:10px;
+  --ease-out:cubic-bezier(0.23,1,0.32,1);
+  --ease-spring:cubic-bezier(0.34,1.56,0.64,1);
+}
 
-        :root {
-            --primary-color: #6C63FF;
-            --secondary-color: #4CAF50;
-            --accent-color: #FF6B6B;
-            --background-color: #0F0F1F;
-            --text-color: #FFFFFF;
-        }
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} *{animation:none!important;transition:none!important;} }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            overflow-x: hidden;
-        }
+body{
+  background:var(--void);
+  color:var(--text);
+  font-family:var(--font-body);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  cursor:none;
+}
 
-        .neurovr-btn {
-            background-color: var(--primary-color);
-            color: var(--text-color);
-            border: none;
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
+::selection{background:var(--accent);color:#fff;}
 
-        .neurovr-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: all 0.5s;
-        }
+img,svg{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+button{font:inherit;color:inherit;background:none;border:none;cursor:none;}
+ul{list-style:none;}
 
-        .neurovr-btn:hover::before {
-            left: 100%;
-        }
+.container{max-width:var(--container);margin:0 auto;padding:0 var(--gutter);}
 
-        .neurovr-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(108, 99, 255, 0.3);
-        }
+/* ════════════════════════════════════════════════════════════
+   PRELOADER
+   ════════════════════════════════════════════════════════════ */
+#preloader{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--void-deep);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity .8s var(--ease-out), visibility .8s;
+}
+#preloader.is-done{opacity:0;visibility:hidden;pointer-events:none;}
+#preloader canvas{position:absolute;inset:0;width:100%;height:100%;}
+.preloader-content{position:relative;z-index:2;text-align:center;}
+.preloader-logo{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--text-faint);margin-bottom:32px;
+}
+.preloader-logo span{color:var(--accent);font-weight:600;}
+.preloader-bar{width:180px;height:2px;background:var(--border);margin:0 auto;position:relative;overflow:hidden;border-radius:99px;}
+.preloader-fill{position:absolute;left:0;top:0;height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent-3));transition:width .3s var(--ease-out);}
+.preloader-percent{font-family:var(--font-mono);font-size:10px;color:var(--text-faint);margin-top:16px;letter-spacing:.1em;}
 
-        .hero-section {
-            height: 100vh;
-            position: relative;
-            overflow: hidden;
-        }
+/* ════════════════════════════════════════════════════════════
+   CUSTOM CURSOR (Light Mode)
+   ════════════════════════════════════════════════════════════ */
+#cursor{position:fixed;z-index:9998;pointer-events:none;}
+.cursor-dot{width:6px;height:6px;background:var(--text);border-radius:50%;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;}
+.cursor-ring{width:36px;height:36px;border:1px solid var(--accent);border-radius:50%;transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .2s,opacity .2s;opacity:.4;}
+.cursor-dot.is-hover{width:0;height:0;}
+.cursor-ring.is-hover{width:56px;height:56px;border-color:var(--alert);opacity:.6;}
+@media (pointer:coarse){ #cursor{display:none;} body{cursor:auto;} button{cursor:pointer;} }
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
+/* ════════════════════════════════════════════════════════════
+   NAVIGATION
+   ════════════════════════════════════════════════════════════ */
+.site-nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:20px var(--gutter);
+  display:flex;align-items:center;justify-content:space-between;
+  transition:background .4s var(--ease-out),backdrop-filter .4s,box-shadow .4s;
+}
+.site-nav.is-scrolled{background:var(--surface-glass);backdrop-filter:blur(24px) saturate(1.3);border-bottom:1px solid var(--border);box-shadow:0 1px 24px rgba(14,165,233,0.06);}
 
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://source.unsplash.com/random/1920x1080?virtual+reality,technology') no-repeat center center;
-            background-size: cover;
-            filter: brightness(0.3);
-            z-index: 1;
-        }
+.wordmark{
+  font-family:var(--font-mono);font-size:12px;font-weight:600;letter-spacing:.04em;
+  display:flex;align-items:center;gap:10px;color:var(--text);
+}
+.wordmark .mark{width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 0 12px var(--accent-glow), 0 0 24px var(--accent-2-glow);animation:pulse-glow 3s ease-in-out infinite;}
+@keyframes pulse-glow{0%,100%{box-shadow:0 0 8px var(--accent-glow), 0 0 16px var(--accent-2-glow);}50%{box-shadow:0 0 20px var(--accent-glow), 0 0 40px var(--accent-2-glow);}}
 
-        .hero-particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
+.nav-links{display:flex;gap:32px;font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-soft);}
+.nav-links a{position:relative;padding:6px 0;transition:color .3s;}
+.nav-links a:hover{color:var(--text);}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .4s var(--ease-out);}
+.nav-links a:hover::after{width:100%;}
+.nav-links a.is-active{color:var(--accent-deep);}
+.nav-links a.is-active::after{width:100%;background:var(--accent-deep);}
 
-        .lottie-animation {
-            width: 300px;
-            height: 300px;
-            margin: 0 auto;
-        }
+.nav-cta{
+  font-family:var(--font-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;
+  padding:10px 22px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);
+  color:var(--text);position:relative;overflow:hidden;transition:border-color .3s,color .3s,box-shadow .3s;
+  background:var(--surface);
+}
+.nav-cta::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,var(--accent),var(--accent-2));transform:translateY(100%);transition:transform .4s var(--ease-out);z-index:-1;}
+.nav-cta:hover{color:#fff;border-color:transparent;box-shadow:0 4px 20px var(--accent-glow);}
+.nav-cta:hover::before{transform:translateY(0);}
 
-        .section {
-            padding: 100px 0;
-        }
+.nav-toggle{display:none;width:40px;height:40px;border:1px solid var(--border);border-radius:var(--radius-sm);align-items:center;justify-content:center;background:var(--surface);}
+@media (max-width:960px){ .nav-links,.nav-cta{display:none;} .nav-toggle{display:flex;} }
 
-        .feature-card {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
+.mobile-menu{
+  display:none;position:fixed;inset:0;z-index:99;background:var(--void-deep);flex-direction:column;justify-content:center;gap:20px;padding:0 var(--gutter);opacity:0;transition:opacity .4s var(--ease-out);
+}
+.mobile-menu.is-open{display:flex;}
+.mobile-menu.is-visible{opacity:1;}
+.mobile-menu a{font-family:var(--font-display);font-size:clamp(28px,6vw,42px);font-weight:700;transition:color .3s;color:var(--text);}
+.mobile-menu a:hover{color:var(--accent);}
 
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            transform: rotate(45deg);
-            transition: all 0.5s ease;
-        }
+/* ════════════════════════════════════════════════════════════
+   HERO
+   ════════════════════════════════════════════════════════════ */
+.hero{
+  position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;
+  padding:140px var(--gutter) 100px;
+  background:var(--aurora);
+}
+#heroCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;}
+.hero-grid{
+  position:relative;z-index:2;max-width:var(--container);margin:0 auto;
+  display:grid;grid-template-columns:1.1fr .9fr;gap:80px;align-items:center;width:100%;
+}
 
-        .feature-card:hover::before {
-            top: -20%;
-            left: -20%;
-        }
+.hero-eyebrow{
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent-deep);margin-bottom:24px;display:flex;align-items:center;gap:12px;
+}
+.hero-eyebrow::before{content:"";display:block;width:24px;height:1px;background:linear-gradient(90deg,var(--accent),var(--accent-2));}
 
-        .feature-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
+.hero h1{
+  font-family:var(--font-display);font-size:clamp(44px,6.5vw,82px);font-weight:800;line-height:1.05;letter-spacing:-0.03em;margin-bottom:28px;
+  color:var(--text);
+}
+.hero h1 .line{display:block;overflow:hidden;}
+.hero h1 .line-inner{display:block;transform:translateY(110%);transition:transform 1s var(--ease-out);}
+.hero h1 .line-inner.is-revealed{transform:translateY(0);}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--neural));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero h1 .alert-em{color:var(--alert);}
 
-        .vr-experience {
-            position: relative;
-            height: 500px;
-            overflow: hidden;
-            border-radius: 20px;
-        }
+.hero-lede{
+  font-size:clamp(16px,1.4vw,18px);color:var(--text-soft);max-width:520px;line-height:1.75;margin-bottom:44px;
+  opacity:0;transform:translateY(20px);transition:opacity .8s .4s,transform .8s .4s;
+}
+.hero-lede.is-revealed{opacity:1;transform:translateY(0);}
 
-        .vr-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
+.hero-stats{display:flex;gap:40px;margin-bottom:48px;opacity:0;transform:translateY(20px);transition:opacity .8s .6s,transform .8s .6s;}
+.hero-stats.is-revealed{opacity:1;transform:translateY(0);}
+.hero-stat{position:relative;padding-left:20px;border-left:1px solid var(--border-strong);}
+.hero-stat-num{font-family:var(--font-display);font-size:clamp(28px,3vw,40px);font-weight:700;color:var(--text);line-height:1;}
+.hero-stat-num .counter{color:var(--accent-deep);}
+.hero-stat-label{font-family:var(--font-mono);font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-faint);margin-top:8px;}
 
-        .vr-experience:hover .vr-overlay {
-            opacity: 1;
-        }
+.hero-cta{display:flex;align-items:center;gap:24px;flex-wrap:wrap;opacity:0;transform:translateY(20px);transition:opacity .8s .8s,transform .8s .8s;}
+.hero-cta.is-revealed{opacity:1;transform:translateY(0);}
 
-        .progress-ring {
-            width: 120px;
-            height: 120px;
-        }
+.btn-primary{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:12px;padding:16px 32px;border-radius:var(--radius-sm);
+  background:linear-gradient(135deg,var(--accent),var(--accent-deep));color:#fff;font-weight:600;position:relative;overflow:hidden;
+  transition:transform .3s var(--ease-out),box-shadow .3s;
+  box-shadow:0 0 0 0 var(--accent-glow);
+  border:none;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow), 0 8px 32px var(--accent-2-glow);}
+.btn-primary svg{width:14px;height:14px;}
 
-        .progress-ring__circle {
-            stroke: var(--primary-color);
-            fill: transparent;
-            stroke-width: 8;
-            stroke-linecap: round;
-            transform: rotate(-90deg);
-            transform-origin: 50% 50%;
-            transition: stroke-dashoffset 0.35s;
-        }
+.btn-ghost{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:10px;padding:16px 28px;border-radius:var(--radius-sm);
+  border:1px solid var(--border-strong);color:var(--text);transition:all .3s var(--ease-out);background:var(--surface);
+}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent-deep);background:var(--accent-glow);box-shadow:0 2px 12px var(--accent-glow);}
 
-        .cta-section {
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            padding: 80px 0;
-        }
+.hero-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:32px;position:relative;overflow:hidden;
+  opacity:0;transform:translateX(40px) scale(0.96);transition:opacity 1s .5s,transform 1s .5s;
+  box-shadow:0 24px 64px rgba(14,165,233,0.06), 0 8px 24px rgba(15,23,42,0.04), inset 0 1px 0 rgba(255,255,255,0.8);
+  backdrop-filter:blur(12px);
+}
+.hero-card.is-revealed{opacity:1;transform:translateX(0) scale(1);}
+.hero-card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent-3));opacity:.6;
+}
+.hero-card::after{
+  content:"";position:absolute;inset:0;background:var(--frost);pointer-events:none;opacity:.5;
+}
 
-        .testimonial-card {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            transition: all 0.3s ease;
-        }
+.card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);position:relative;z-index:1;}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--alert);display:inline-block;margin-right:8px;animation:pulse-dot 2s infinite;}
+.live-dot.is-calm{background:var(--accent-4);}
+@keyframes pulse-dot{0%,100%{opacity:1;}50%{opacity:.3;}}
 
-        .testimonial-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
+#miniMap{width:100%;height:auto;position:relative;z-index:1;}
+.map-route{fill:none;stroke:var(--accent);stroke-width:1.5;stroke-dasharray:6 4;opacity:.6;}
+.map-terrain{fill:none;stroke:var(--border);stroke-width:.5;opacity:.3;}
+.map-pin{fill:var(--alert);filter:drop-shadow(0 0 8px var(--alert-glow));transition:all .5s var(--ease-out);}
+.map-pin.is-calm{fill:var(--accent);filter:drop-shadow(0 0 8px var(--accent-glow));}
 
-        .footer {
-            background-color: #1E1E1E;
-            padding: 50px 0;
-        }
+.card-slider{margin-top:20px;position:relative;z-index:1;}
+.card-slider input{width:100%;-webkit-appearance:none;height:2px;background:var(--border);border-radius:99px;outline:none;}
+.card-slider input::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid var(--accent);cursor:none;box-shadow:0 0 12px var(--accent-glow), 0 2px 8px rgba(15,23,42,0.1);}
+.card-slider input::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid var(--accent);cursor:none;}
 
-        #neuroVRCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
+.card-readout{display:flex;gap:28px;margin-top:20px;padding-top:16px;border-top:1px solid var(--border);font-family:var(--font-mono);font-size:10px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.06em;position:relative;z-index:1;}
+.card-readout b{display:block;font-size:20px;font-family:var(--font-display);font-weight:700;color:var(--text);margin-bottom:4px;}
 
-        .content-wrapper {
-            position: relative;
-            z-index: 1;
-        }
+@media (max-width:980px){ .hero-grid{grid-template-columns:1fr;} .hero-card{max-width:480px;margin:0 auto;} }
 
-        /* Additional styles for new sections */
-        .brain-model {
-            width: 100%;
-            height: 400px;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-        }
+/* ════════════════════════════════════════════════════════════
+   TRUST STRIP
+   ════════════════════════════════════════════════════════════ */
+.trust-strip{padding:32px var(--gutter);border-bottom:1px solid var(--border);position:relative;z-index:2;background:var(--void);}
+.trust-strip .container{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;}
+.trust-label{font-family:var(--font-mono);font-size:9px;text-transform:uppercase;letter-spacing:.14em;color:var(--text-faint);white-space:nowrap;}
+.trust-items{display:flex;flex-wrap:wrap;gap:32px;font-size:13px;color:var(--text-faint);font-weight:500;}
+.trust-items span{opacity:.6;transition:opacity .3s;}
+.trust-items span:hover{opacity:1;color:var(--text-soft);}
 
-        .therapy-timeline {
-            position: relative;
-            padding: 40px 0;
-        }
+/* ════════════════════════════════════════════════════════════
+   SECTION BASE & REVEAL
+   ════════════════════════════════════════════════════════════ */
+.section{padding:120px var(--gutter);position:relative;}
+.section-alt{background:var(--void-deep);}
+.section-inner{max-width:var(--container);margin:0 auto;}
 
-        .timeline-item {
-            position: relative;
-            padding-left: 40px;
-            margin-bottom: 40px;
-        }
+.section-eyebrow{
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-deep);margin-bottom:16px;
+  display:inline-flex;align-items:center;gap:10px;opacity:0;transform:translateY(12px);transition:opacity .6s,transform .6s;
+}
+.section-eyebrow.is-visible{opacity:1;transform:translateY(0);}
+.section-eyebrow .num{color:var(--text-faint);}
 
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 20px;
-            height: 20px;
-            background-color: var(--primary-color);
-            border-radius: 50%;
-        }
+.section h2{
+  font-family:var(--font-display);font-size:clamp(34px,4.5vw,56px);font-weight:800;line-height:1.08;letter-spacing:-0.02em;margin-bottom:20px;
+  opacity:0;transform:translateY(24px);transition:opacity .8s .1s,transform .8s .1s;
+  color:var(--text);
+}
+.section h2.is-visible{opacity:1;transform:translateY(0);}
 
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            left: 9px;
-            top: 20px;
-            width: 2px;
-            height: calc(100% + 20px);
-            background-color: var(--primary-color);
-        }
+.section-lede{font-size:clamp(16px,1.3vw,18px);color:var(--text-soft);max-width:560px;line-height:1.75;margin-bottom:60px;opacity:0;transform:translateY(16px);transition:opacity .8s .2s,transform .8s .2s;}
+.section-lede.is-visible{opacity:1;transform:translateY(0);}
 
-        .timeline-item:last-child::after {
-            display: none;
-        }
+/* ════════════════════════════════════════════════════════════
+   TERRITORY — 3D CARD STACK
+   ════════════════════════════════════════════════════════════ */
+.territory-showcase{display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:center;}
+.territory-visual{perspective:1200px;}
+.territory-card-stack{position:relative;width:100%;max-width:420px;aspect-ratio:4/5;margin:0 auto;transform-style:preserve-3d;}
+.territory-card{
+  position:absolute;inset:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:36px;display:flex;flex-direction:column;justify-content:space-between;
+  box-shadow:0 20px 60px rgba(14,165,233,0.06), 0 4px 16px rgba(15,23,42,0.04);transition:transform .6s var(--ease-out),opacity .6s;
+  backface-visibility:hidden;
+}
+.territory-card.is-active{z-index:10;transform:translateZ(40px) rotateY(0deg);opacity:1;}
+.territory-card.is-prev{transform:translateZ(-20px) translateX(-60%) rotateY(25deg) scale(.9);opacity:.5;z-index:5;}
+.territory-card.is-next{transform:translateZ(-20px) translateX(60%) rotateY(-25deg) scale(.9);opacity:.5;z-index:5;}
+.territory-card.is-hidden{transform:translateZ(-60px) scale(.8);opacity:0;z-index:0;}
 
-        .research-paper {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            transition: all 0.3s ease;
-        }
+.territory-card .tag{font-family:var(--font-mono);font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--accent-deep);margin-bottom:16px;}
+.territory-card h3{font-size:clamp(22px,2vw,28px);font-weight:700;margin-bottom:12px;color:var(--text);}
+.territory-card p{color:var(--text-soft);font-size:14.5px;line-height:1.7;flex:1;}
+.territory-card .stat{margin-top:20px;padding-top:16px;border-top:1px solid var(--border);font-family:var(--font-mono);font-size:11px;color:var(--text-faint);}
 
-        .research-paper:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
+.territory-card-visual{width:100%;height:140px;border-radius:var(--radius-sm);background:var(--void);border:1px solid var(--border);margin-bottom:20px;position:relative;overflow:hidden;}
+.territory-card-visual canvas{width:100%;height:100%;}
 
-        .team-member {
-            text-align: center;
-            margin-bottom: 40px;
-        }
+.territory-controls{display:flex;gap:12px;margin-top:24px;}
+.territory-btn{width:44px;height:44px;border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--text);transition:all .3s;background:var(--surface);}
+.territory-btn:hover{border-color:var(--accent);color:var(--accent-deep);background:var(--accent-glow);box-shadow:0 2px 12px var(--accent-glow);}
+.territory-btn svg{width:16px;height:16px;}
 
-        .team-member img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-        }
+.territory-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px;}
+.territory-chip{
+  font-family:var(--font-mono);font-size:11px;padding:10px 18px;border-radius:999px;
+  border:1px solid var(--border);color:var(--text-soft);background:var(--surface);transition:all .3s var(--ease-out);
+}
+.territory-chip:hover{border-color:var(--text-soft);color:var(--text);}
+.territory-chip.is-active{background:linear-gradient(135deg,var(--accent),var(--accent-deep));color:#fff;border-color:transparent;font-weight:600;box-shadow:0 4px 16px var(--accent-glow);}
 
-        .team-member:hover img {
-            transform: scale(1.1);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
+@media (max-width:860px){ .territory-showcase{grid-template-columns:1fr;} .territory-card-stack{max-width:320px;} }
 
-        .faq-item {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+/* ════════════════════════════════════════════════════════════
+   ROUTE — MORPHING PATH
+   ════════════════════════════════════════════════════════════ */
+.route-visual{position:relative;margin-bottom:64px;}
+#routeCanvas{width:100%;height:320px;}
 
-        .faq-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
+.route-waypoints{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;position:relative;}
+.route-waypoints::before{
+  content:"";position:absolute;top:24px;left:48px;right:48px;height:1px;
+  background:repeating-linear-gradient(90deg,var(--border-strong) 0 4px,transparent 4px 10px);z-index:0;
+}
+.waypoint{position:relative;padding-top:56px;z-index:1;opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s var(--ease-out);}
+.waypoint.is-visible{opacity:1;transform:translateY(0);}
+.waypoint .num{
+  position:absolute;top:0;left:0;width:48px;height:48px;border-radius:50%;background:var(--surface);
+  border:1px solid var(--border-strong);display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--text-faint);transition:all .4s var(--ease-out);
+  box-shadow:0 2px 8px rgba(14,165,233,0.04);
+}
+.waypoint:hover .num{border-color:var(--accent);color:var(--accent-deep);box-shadow:0 0 20px var(--accent-glow);}
+.waypoint h4{font-size:17px;font-weight:700;margin-bottom:8px;color:var(--text);}
+.waypoint p{color:var(--text-soft);font-size:14px;line-height:1.65;}
 
-        .faq-answer {
-            display: none;
-            margin-top: 20px;
-        }
+@media (max-width:860px){
+  .route-waypoints{grid-template-columns:1fr;gap:40px;}
+  .route-waypoints::before{display:none;}
+  .waypoint{padding-left:64px;padding-top:0;}
+  .waypoint .num{left:0;top:0;}
+}
 
-        .partner-logo {
-            filter: grayscale(100%);
-            opacity: 0.5;
-            transition: all 0.3s ease;
-        }
+.itinerary{border-top:1px solid var(--border);}
+.itin-row{
+  display:grid;grid-template-columns:100px 1fr;gap:32px;padding:28px 0;border-bottom:1px solid var(--border);
+  opacity:0;transform:translateX(-20px);transition:opacity .6s,transform .6s var(--ease-out);
+}
+.itin-row.is-visible{opacity:1;transform:translateX(0);}
+.itin-week{font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-deep);padding-top:4px;}
+.itin-row h4{font-size:18px;font-weight:600;margin-bottom:6px;color:var(--text);}
+.itin-row p{color:var(--text-soft);font-size:14px;line-height:1.65;}
+@media (max-width:600px){ .itin-row{grid-template-columns:1fr;gap:8px;} }
 
-        .partner-logo:hover {
-            filter: grayscale(0%);
-            opacity: 1;
-        }
-    </style>
+/* ════════════════════════════════════════════════════════════
+   NEURAL ARCHITECTURE
+   ════════════════════════════════════════════════════════════ */
+.neural-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+.neural-cell{background:var(--surface);padding:40px 32px;position:relative;overflow:hidden;transition:background .4s;}
+.neural-cell:hover{background:var(--surface-raised);}
+.neural-cell::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent-3));opacity:0;transition:opacity .4s;
+}
+.neural-cell:hover::before{opacity:.5;}
+.neural-cell .index{font-family:var(--font-mono);font-size:10px;color:var(--text-faint);margin-bottom:16px;}
+.neural-cell h4{font-size:18px;font-weight:700;margin-bottom:10px;color:var(--text);}
+.neural-cell p{color:var(--text-soft);font-size:13.8px;line-height:1.65;}
+.neural-icon{width:40px;height:40px;border-radius:var(--radius-sm);background:var(--void);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:18px;transition:all .4s;}
+.neural-cell:hover .neural-icon{border-color:var(--accent);box-shadow:0 0 16px var(--accent-glow);color:var(--accent-deep);}
+
+@media (max-width:980px){ .neural-grid{grid-template-columns:1fr;} }
+
+/* ════════════════════════════════════════════════════════════
+   INSTRUMENTS — BENTO
+   ════════════════════════════════════════════════════════════ */
+.bento{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:minmax(180px,auto);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+.bento-card{background:var(--surface);padding:32px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;transition:background .4s,box-shadow .4s;}
+.bento-card:hover{background:var(--surface-raised);box-shadow:0 4px 24px rgba(14,165,233,0.04);}
+.bento-card::after{
+  content:"";position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-2));transform:scaleX(0);transition:transform .5s var(--ease-out);transform-origin:left;
+}
+.bento-card:hover::after{transform:scaleX(1);}
+.bento-card .tag{font-family:var(--font-mono);font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent-deep);margin-bottom:14px;}
+.bento-card h4{font-size:17px;font-weight:700;margin-bottom:10px;color:var(--text);}
+.bento-card p{color:var(--text-soft);font-size:13.6px;line-height:1.6;}
+.bento-1{grid-column:span 2;grid-row:span 2;}
+.bento-2{grid-column:span 2;}
+.bento-5{grid-column:span 2;}
+
+.bento-viz{width:100%;height:80px;margin-top:20px;position:relative;}
+.bento-viz canvas{width:100%;height:100%;}
+
+@media (max-width:980px){ .bento{grid-template-columns:repeat(2,1fr);} .bento-1{grid-column:span 2;} }
+@media (max-width:560px){ .bento{grid-template-columns:1fr;} .bento-1,.bento-2,.bento-3,.bento-4,.bento-5{grid-column:span 1;} }
+
+/* ════════════════════════════════════════════════════════════
+   FIELD NOTES
+   ════════════════════════════════════════════════════════════ */
+.ledger{width:100%;border-collapse:separate;border-spacing:0;}
+.ledger th,.ledger td{padding:18px 20px;text-align:left;font-size:14px;}
+.ledger th{font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);border-bottom:1px solid var(--border-strong);font-weight:500;}
+.ledger td{border-bottom:1px solid var(--border);color:var(--text-soft);transition:background .3s;}
+.ledger tr:hover td{background:rgba(14,165,233,0.03);}
+.ledger td:first-child{font-weight:600;color:var(--text);}
+.ledger .yes{color:var(--accent-deep);font-weight:600;}
+.ledger .no{color:var(--text-faint);opacity:.4;}
+.ledger .highlight{background:rgba(14,165,233,0.04);}
+.ledger th.highlight{color:var(--accent-deep);}
+.ledger td.highlight{color:var(--text);}
+
+/* ════════════════════════════════════════════════════════════
+   BEARING — INTERACTIVE SIMULATOR
+   ════════════════════════════════════════════════════════════ */
+.bearing-panel{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:clamp(32px,4vw,56px);display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;
+  box-shadow:0 24px 80px rgba(14,165,233,0.06), 0 8px 24px rgba(15,23,42,0.03);
+}
+.bearing-controls .chip-row{margin-bottom:32px;}
+.bearing-chip{
+  font-family:var(--font-mono);font-size:11px;padding:10px 18px;border-radius:999px;
+  border:1px solid var(--border);color:var(--text-soft);background:var(--surface);transition:all .3s;cursor:none;
+}
+.bearing-chip:hover{border-color:var(--text-soft);color:var(--text);}
+.bearing-chip.is-active{background:linear-gradient(135deg,var(--accent),var(--accent-deep));color:#fff;border-color:transparent;font-weight:600;box-shadow:0 4px 16px var(--accent-glow);}
+
+.intensity-row{margin-bottom:32px;}
+.intensity-row label{font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);display:block;margin-bottom:14px;}
+.intensity-row input[type=range]{width:100%;-webkit-appearance:none;height:2px;background:var(--border);border-radius:99px;outline:none;}
+.intensity-row input::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#fff;border:2px solid var(--alert);cursor:none;box-shadow:0 0 12px var(--alert-glow), 0 2px 8px rgba(15,23,42,0.1);}
+.intensity-row input::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:#fff;border:2px solid var(--alert);cursor:none;}
+.intensity-scale{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:9px;color:var(--text-faint);margin-top:10px;}
+
+.breathe-btn{
+  width:100%;padding:16px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);
+  font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--text);display:flex;align-items:center;justify-content:center;gap:10px;
+  transition:all .4s var(--ease-out);position:relative;overflow:hidden;background:var(--surface);
+}
+.breathe-btn::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,var(--accent),var(--accent-deep));transform:translateY(100%);transition:transform .5s var(--ease-out);z-index:0;}
+.breathe-btn:hover{border-color:var(--accent);}
+.breathe-btn.is-active{color:#fff;border-color:var(--accent);}
+.breathe-btn.is-active::before{transform:translateY(0);}
+.breathe-btn span{position:relative;z-index:1;}
+
+.bearing-stage{text-align:center;border-left:1px solid var(--border);padding-left:48px;position:relative;}
+#gaugeCanvas{width:100%;max-width:260px;margin:0 auto 20px;}
+.bearing-label{font-family:var(--font-mono);font-size:11px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;min-height:18px;transition:color .3s;}
+.bearing-label.is-breathing{color:var(--accent-deep);}
+.bearing-readout{font-family:var(--font-mono);font-size:11px;color:var(--text-faint);margin-top:14px;}
+.bearing-readout b{color:var(--text);font-size:24px;font-family:var(--font-display);font-weight:700;display:block;margin-bottom:4px;}
+.breath-dots{display:flex;justify-content:center;gap:8px;margin-top:18px;}
+.breath-dot{width:6px;height:6px;border-radius:50%;background:var(--border);transition:all .4s var(--ease-out);}
+.breath-dot.is-active{background:var(--accent);box-shadow:0 0 12px var(--accent-glow);transform:scale(1.4);}
+
+@media (max-width:860px){ .bearing-panel{grid-template-columns:1fr;gap:40px;} .bearing-stage{border-left:none;padding-left:0;padding-top:36px;border-top:1px solid var(--border);} }
+
+/* ════════════════════════════════════════════════════════════
+   TELEMETRY DASHBOARD
+   ════════════════════════════════════════════════════════════ */
+.telemetry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+.telemetry-block{background:var(--surface);padding:48px 32px;position:relative;overflow:hidden;}
+.telemetry-block::before{
+  content:"";position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,var(--accent),var(--accent-2));opacity:0;transition:opacity .4s;
+}
+.telemetry-block:hover::before{opacity:1;}
+.telemetry-num{font-family:var(--font-display);font-size:clamp(40px,5vw,56px);font-weight:800;color:var(--text);line-height:1;position:relative;}
+.telemetry-num .suffix{font-size:20px;color:var(--text-faint);font-weight:500;}
+.telemetry-label{font-size:14px;color:var(--text-soft);margin-top:14px;line-height:1.6;max-width:280px;}
+.telemetry-chart{height:60px;margin-top:20px;position:relative;}
+.telemetry-chart canvas{width:100%;height:100%;}
+
+@media (max-width:860px){ .telemetry-grid{grid-template-columns:1fr;} }
+
+/* ════════════════════════════════════════════════════════════
+   PROVISIONS
+   ════════════════════════════════════════════════════════════ */
+.provisions-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:40px;}
+.provision-card{background:var(--surface);padding:40px 32px;display:flex;flex-direction:column;position:relative;overflow:hidden;transition:background .4s,box-shadow .4s;}
+.provision-card:hover{background:var(--surface-raised);box-shadow:0 4px 24px rgba(14,165,233,0.04);}
+.provision-card.is-featured{background:var(--surface-raised);}
+.provision-card.is-featured::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent-3));opacity:.8;
+}
+.provision-tag{font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);margin-bottom:16px;}
+.provision-tag.is-featured{color:var(--accent-deep);}
+.provision-name{font-size:22px;font-weight:700;margin-bottom:6px;color:var(--text);}
+.provision-price{font-family:var(--font-display);font-size:clamp(32px,3.5vw,44px);font-weight:800;margin-bottom:24px;color:var(--text);}
+.provision-price span{font-family:var(--font-mono);font-size:12px;color:var(--text-faint);font-weight:400;}
+.provision-features{margin-bottom:32px;flex:1;}
+.provision-features li{font-size:14px;color:var(--text-soft);padding:10px 0;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:baseline;}
+.provision-features li:last-child{border-bottom:none;}
+.provision-features li::before{content:"→";color:var(--accent-deep);font-family:var(--font-mono);font-size:10px;}
+
+@media (max-width:860px){ .provisions-grid{grid-template-columns:1fr;} }
+
+/* ════════════════════════════════════════════════════════════
+   DISPATCHES
+   ════════════════════════════════════════════════════════════ */
+.dispatch-track{display:flex;gap:24px;overflow-x:auto;padding-bottom:20px;scroll-snap-type:x mandatory;cursor:grab;scrollbar-width:none;}
+.dispatch-track::-webkit-scrollbar{display:none;}
+.dispatch-track:active{cursor:grabbing;}
+.dispatch-card{
+  scroll-snap-align:start;flex:0 0 min(400px,85vw);
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:36px;position:relative;overflow:hidden;transition:transform .4s var(--ease-out),border-color .4s,box-shadow .4s;
+}
+.dispatch-card:hover{transform:translateY(-4px);border-color:var(--border-strong);box-shadow:0 8px 32px rgba(14,165,233,0.06);}
+.dispatch-card::before{
+  content:"\"";position:absolute;top:20px;right:24px;font-family:var(--font-display);font-size:60px;color:var(--accent);opacity:.06;line-height:1;
+}
+.dispatch-card p{font-size:16px;line-height:1.75;margin-bottom:28px;font-style:italic;color:var(--text-soft);}
+.dispatch-card footer{font-family:var(--font-mono);font-size:10px;color:var(--text-faint);border-top:1px solid var(--border);padding-top:18px;display:flex;justify-content:space-between;align-items:center;}
+.dispatch-card footer .tag{color:var(--accent-deep);font-size:9px;text-transform:uppercase;letter-spacing:.08em;}
+
+/* ════════════════════════════════════════════════════════════
+   CREW
+   ════════════════════════════════════════════════════════════ */
+.crew-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;}
+.crew-card{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s var(--ease-out);}
+.crew-card.is-visible{opacity:1;transform:translateY(0);}
+.crew-avatar{
+  width:100%;aspect-ratio:1/1;border-radius:var(--radius);margin-bottom:20px;
+  display:flex;align-items:center;justify-content:center;font-family:var(--font-display);
+  font-style:italic;font-size:42px;font-weight:800;color:var(--text);
+  border:1px solid var(--border);position:relative;overflow:hidden;
+  transition:transform .5s var(--ease-out),border-color .4s;
+  background:var(--surface);
+}
+.crew-card:hover .crew-avatar{transform:scale(1.02);border-color:var(--accent);}
+.crew-avatar::after{
+  content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 40%,rgba(14,165,233,0.08) 100%);opacity:0;transition:opacity .4s;
+}
+.crew-card:hover .crew-avatar::after{opacity:1;}
+.crew-card h4{font-size:18px;font-weight:700;margin-bottom:4px;color:var(--text);}
+.crew-card .role{font-family:var(--font-mono);font-size:10px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.06em;}
+
+@media (max-width:860px){ .crew-grid{grid-template-columns:1fr;} }
+
+/* ════════════════════════════════════════════════════════════
+   FAQ
+   ════════════════════════════════════════════════════════════ */
+.faq-list{border-top:1px solid var(--border);max-width:800px;}
+.faq-row{border-bottom:1px solid var(--border);}
+.faq-q{
+  width:100%;display:flex;justify-content:space-between;align-items:center;text-align:left;
+  padding:28px 0;font-size:17px;font-weight:600;color:var(--text);transition:color .3s;
+}
+.faq-q:hover{color:var(--accent-deep);}
+.faq-q .toggle-icon{
+  width:28px;height:28px;border-radius:50%;border:1px solid var(--border-strong);
+  display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);
+  font-size:16px;color:var(--accent);transition:all .4s var(--ease-out);flex-shrink:0;margin-left:16px;
+}
+.faq-row.is-open .toggle-icon{transform:rotate(45deg);background:var(--accent);color:#fff;border-color:var(--accent);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .5s var(--ease-out);}
+.faq-a p{color:var(--text-soft);padding-bottom:28px;max-width:680px;line-height:1.75;font-size:15px;}
+
+/* ════════════════════════════════════════════════════════════
+   EXPEDITION LOG
+   ════════════════════════════════════════════════════════════ */
+.log-section{padding:100px var(--gutter);text-align:center;background:var(--void-deep);position:relative;overflow:hidden;}
+.log-section::before{
+  content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(14,165,233,0.08) 0%,transparent 70%);opacity:.5;pointer-events:none;
+}
+.log-section .container{position:relative;z-index:2;}
+.log-section h3{font-size:clamp(26px,3vw,34px);font-weight:800;margin-bottom:12px;color:var(--text);}
+.log-section p{color:var(--text-soft);margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto;}
+.log-form{display:flex;gap:12px;max-width:480px;margin:0 auto;flex-wrap:wrap;}
+.log-form input{flex:1;min-width:220px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 20px;color:var(--text);font-size:14px;transition:border-color .3s,box-shadow .3s;}
+.log-form input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 20px var(--accent-glow);}
+.log-form button{padding:14px 28px;}
+.form-success{font-family:var(--font-mono);font-size:12px;color:var(--accent-deep);margin-top:18px;display:none;}
+.form-success.is-shown{display:block;}
+
+/* ════════════════════════════════════════════════════════════
+   BEGIN
+   ════════════════════════════════════════════════════════════ */
+.begin-section{text-align:center;padding:140px var(--gutter);}
+.begin-section h2{font-size:clamp(40px,6vw,72px);font-weight:800;max-width:900px;margin:0 auto 24px;line-height:1.05;color:var(--text);}
+.begin-section .section-lede{margin:0 auto 60px;text-align:center;}
+.begin-form{max-width:540px;margin:0 auto;text-align:left;}
+.field-group{margin-bottom:24px;position:relative;}
+.field-group label{font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);display:block;margin-bottom:8px;transition:color .3s;}
+.field-group input,.field-group textarea{
+  width:100%;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:16px 18px;color:var(--text);font-size:15px;transition:border-color .3s,box-shadow .3s;
+}
+.field-group textarea{resize:vertical;min-height:100px;}
+.field-group input:focus,.field-group textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 20px var(--accent-glow);}
+.field-group:focus-within label{color:var(--accent-deep);}
+.begin-form .btn-primary{margin-top:12px;width:100%;justify-content:center;}
+
+/* ════════════════════════════════════════════════════════════
+   FOOTER
+   ════════════════════════════════════════════════════════════ */
+.site-footer{padding:40px var(--gutter);display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:10.5px;color:var(--text-faint);flex-wrap:wrap;gap:16px;border-top:1px solid var(--border);}
+.site-footer .f-links{display:flex;gap:24px;}
+.site-footer a{transition:color .3s;}
+.site-footer a:hover{color:var(--accent-deep);}
+
+.back-to-top{
+  display:none;position:fixed;bottom:28px;right:28px;width:48px;height:48px;border-radius:50%;
+  border:1px solid var(--border);background:var(--surface);align-items:center;justify-content:center;z-index:80;
+  transition:all .3s var(--ease-out);color:var(--text);box-shadow:0 4px 16px rgba(14,165,233,0.06);
+}
+.back-to-top:hover{border-color:var(--accent);background:var(--accent);color:#fff;box-shadow:0 0 24px var(--accent-glow);}
+.back-to-top.is-visible{display:flex;}
+.back-to-top svg{width:16px;height:16px;}
+
+/* ════════════════════════════════════════════════════════════
+   UTILITIES
+   ════════════════════════════════════════════════════════════ */
+#progressBar{position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent-3));z-index:1001;transition:width .1s linear;box-shadow:0 0 10px var(--accent-glow);}
+
+.skip-link{position:absolute;left:-9999px;top:0;background:linear-gradient(135deg,var(--accent),var(--accent-deep));color:#fff;padding:12px 18px;font-family:var(--font-mono);font-size:13px;z-index:9999;}
+.skip-link:focus{left:12px;top:12px;}
+
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+
+.magnetic{transition:transform .3s var(--ease-out);}
+</style>
+<base target="_blank">
+<base target="_blank">
 </head>
 <body>
-    <!-- Preloader -->
-    <div id="preloader">
-        <div class="loader"></div>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<div id="cursor">
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+</div>
+
+<div id="preloader">
+  <canvas id="preloaderCanvas"></canvas>
+  <div class="preloader-content">
+    <div class="preloader-logo">Neuro<span>VR</span> Therapy</div>
+    <div class="preloader-bar"><div class="preloader-fill" id="preloaderFill"></div></div>
+    <div class="preloader-percent" id="preloaderPercent">0%</div>
+  </div>
+</div>
+
+<div id="progressBar"></div>
+
+<header class="site-nav" id="siteNav">
+  <a href="#main" class="wordmark"><span class="mark"></span> NEURO / VR</a>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="#territory">Territory</a>
+    <a href="#route">Route</a>
+    <a href="#neural">Neural</a>
+    <a href="#instruments">Instruments</a>
+    <a href="#bearing">Bearing</a>
+    <a href="#telemetry">Telemetry</a>
+    <a href="#crew">Crew</a>
+    <a href="#begin">Begin</a>
+  </nav>
+  <a href="#begin" class="nav-cta magnetic">Start</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.5"/></svg>
+  </button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#territory">Territory</a>
+  <a href="#route">Route</a>
+  <a href="#neural">Neural</a>
+  <a href="#instruments">Instruments</a>
+  <a href="#bearing">Bearing</a>
+  <a href="#telemetry">Telemetry</a>
+  <a href="#crew">Crew</a>
+  <a href="#faq">FAQ</a>
+  <a href="#begin">Begin</a>
+</div>
+
+<main id="main">
+
+<section class="hero" id="hero">
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-grid">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Neural Cartography</div>
+      <h1>
+        <span class="line"><span class="line-inner" id="heroLine1">Fear has a shape.</span></span>
+        <span class="line"><span class="line-inner" id="heroLine2">We map the way <em>back</em>.</span></span>
+      </h1>
+      <p class="hero-lede" id="heroLede">NeuroVR Therapy reads your body's stress response in real time and uses it to plot a measured route through exposure — one neural pathway at a time — until the territory stops registering as a threat.</p>
+
+      <div class="hero-stats" id="heroStats">
+        <div class="hero-stat">
+          <div class="hero-stat-num"><span class="counter" data-target="6214">0</span></div>
+          <div class="hero-stat-label">Routes mapped</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num"><span class="counter" data-target="94">0</span><span style="color:var(--accent-deep)">%</span></div>
+          <div class="hero-stat-label">Reach calm ground</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num"><span class="counter" data-target="3">0</span> <span style="font-size:18px;color:var(--text-faint)">wks</span></div>
+          <div class="hero-stat-label">Median to first shift</div>
+        </div>
+      </div>
+
+      <div class="hero-cta" id="heroCta">
+        <a href="#begin" class="btn-primary magnetic">Chart your route
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2"/></svg>
+        </a>
+        <a href="#route" class="btn-ghost">See the method</a>
+      </div>
     </div>
 
-    <!-- WebGL Background -->
-    <canvas id="neuroVRCanvas"></canvas>
+    <div class="hero-card" id="heroCard">
+      <div class="card-head">
+        <span><span class="live-dot" id="liveDot"></span>Arousal terrain — live</span>
+        <span id="mapCoord">28.4% calm</span>
+      </div>
+      <svg id="miniMap" viewBox="0 0 400 280">
+        <defs>
+          <linearGradient id="mapGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.15"/>
+            <stop offset="100%" stop-color="#0EA5E9" stop-opacity="0.15"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="200" cy="140" rx="180" ry="120" fill="none" stroke="var(--border)" stroke-width="0.5" opacity="0.3"/>
+        <ellipse cx="200" cy="140" rx="140" ry="90" fill="none" stroke="var(--border)" stroke-width="0.5" opacity="0.4"/>
+        <ellipse cx="200" cy="140" rx="100" ry="60" fill="none" stroke="var(--border)" stroke-width="0.5" opacity="0.5"/>
+        <ellipse cx="200" cy="140" rx="60" ry="35" fill="none" stroke="var(--border)" stroke-width="0.5" opacity="0.6"/>
+        <path id="mapRoute" class="map-route" d="M 40 200 C 80 180, 120 220, 160 140 C 200 60, 240 100, 280 80 C 320 60, 360 100, 380 60"/>
+        <circle id="mapPin" class="map-pin" r="5" cx="0" cy="0"/>
+      </svg>
+      <div class="card-slider">
+        <input type="range" id="mapRange" min="0" max="100" value="28" aria-label="Drag to advance along the route">
+      </div>
+      <div class="card-readout">
+        <div><b id="mapArousal">81%</b>sympathetic arousal</div>
+        <div><b id="mapState">disordered</b>terrain reading</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <div class="content-wrapper">
-        <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top">
-            <div class="container">
-                <a class="navbar-brand" href="#">NeuroVR Therapy</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#research">Research</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonials</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                    </ul>
-                </div>
+<section class="trust-strip">
+  <div class="container">
+    <span class="trust-label">Validated alongside</span>
+    <div class="trust-items">
+      <span>Stanford Medicine</span><span>Oxford VR Lab</span><span>NIH Research</span><span>APA Certified</span><span>UCSF Health</span>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="territory">
+  <div class="section-inner">
+    <div class="section-eyebrow"><span class="num">01</span> Waypoint — Territory</div>
+    <h2>A phobia doesn't ask permission.</h2>
+    <p class="section-lede">It's a fast, automatic alarm, not a choice. The more a territory is avoided, the less mapped it becomes. Choose one to see its neural terrain.</p>
+
+    <div class="territory-showcase">
+      <div class="territory-visual">
+        <div class="territory-card-stack" id="territoryStack">
+          <div class="territory-card is-active" data-territory="heights">
+            <div>
+              <div class="tag">Acrophobia</div>
+              <div class="territory-card-visual"><canvas class="terrCanvas" data-terr="heights"></canvas></div>
+              <h3>The Overlook</h3>
+              <p>Edges, glass floors, the drop between you and solid ground. The visual system overrides the vestibular, and the body believes it's falling.</p>
             </div>
-        </nav>
-
-        <!-- Hero Section -->
-        <section id="home" class="hero-section">
-            <div class="hero-bg"></div>
-            <div id="particles-js" class="hero-particles"></div>
-            <div class="container h-100">
-                <div class="row h-100 align-items-center">
-                    <div class="col-md-6 hero-content" data-aos="fade-right">
-                        <h1 class="display-3 fw-bold mb-4">Rewire Your Brain</h1>
-                        <p class="lead mb-4">Experience the future of phobia treatment with NeuroVR Therapy</p>
-                        <a href="#about" class="neurovr-btn btn-lg">Discover More</a>
-                    </div>
-                    <div class="col-md-6" data-aos="fade-left">
-                        <div class="lottie-animation" id="hero-lottie"></div>
-                    </div>
-                </div>
+            <div class="stat">Avoidance often starts after a single steep moment, and rarely flattens on its own.</div>
+          </div>
+          <div class="territory-card is-next" data-territory="flying">
+            <div>
+              <div class="tag">Aerophobia</div>
+              <div class="territory-card-visual"><canvas class="terrCanvas" data-terr="flying"></canvas></div>
+              <h3>The Crossing</h3>
+              <p>Turbulence, takeoff, the moment the cabin door seals shut. A metal tube at 30,000 feet triggers the oldest part of the brain.</p>
             </div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="section">
-            <div class="container">
-                <h2 class="text-center mb-5" data-aos="fade-up">Revolutionizing Phobia Treatment</h2>
-                <div class="row">
-                    <div class="col-md-6" data-aos="fade-right">
-                        <p>NeuroVR Therapy combines cutting-edge Virtual Reality technology with neuroscience and psychology to create a groundbreaking approach to phobia treatment. Our immersive experiences are designed to rewire neural pathways, helping you overcome your fears in a safe, controlled environment.</p>
-                        <div class="mt-4">
-                            <div class="d-flex align-items-center mb-3">
-                                <i class="fas fa-brain fa-2x me-3 text-primary"></i>
-                                <div>
-                                    <h4 class="mb-0">Neuroplasticity-driven</h4>
-                                    <p class="mb-0">Harness your brain's ability to adapt and change</p>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center mb-3">
-                                <i class="fas fa-vr-cardboard fa-2x me-3 text-primary"></i>
-                                <div>
-                                    <h4 class="mb-0">Immersive VR Experiences</h4>
-                                    <p class="mb-0">Ultra-realistic scenarios for effective exposure therapy</p>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-chart-line fa-2x me-3 text-primary"></i>
-                                <div>
-                                    <h4 class="mb-0">Data-driven Progress</h4>
-                                    <p class="mb-0">Real-time analytics to track your improvement</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6" data-aos="fade-left">
-                        <div class="brain-model" id="brainModel"></div>
-                    </div>
-                </div>
+            <div class="stat">Many people who fear flying restructure entire careers and holidays around it.</div>
+          </div>
+          <div class="territory-card is-hidden" data-territory="spiders">
+            <div>
+              <div class="tag">Arachnophobia</div>
+              <div class="territory-card-visual"><canvas class="terrCanvas" data-terr="spiders"></canvas></div>
+              <h3>The Understory</h3>
+              <p>Quick movement in the leaf litter, eight legs in a doorway. One of the most common specific phobias, and one of the most treatable.</p>
             </div>
-        </section>
-
-        <!-- Features Section -->
-        <section id="features" class="section bg-dark">
-            <div class="container">
-                <h2 class="text-center mb-5" data-aos="fade-up">Cutting-edge Features</h2>
-                <div class="row">
-                    <div class="col-md-4" data-aos="fade-up">
-                        <div class="feature-card">
-                            <i class="fas fa-microchip fa-3x mb-3"></i>
-                            <h3>AI-Powered Adaptation</h3>
-                            <p>Our AI algorithms continuously adjust the therapy intensity based on your physiological responses and progress.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                        <div class="feature-card">
-                            <i class="fas fa-heartbeat fa-3x mb-3"></i>
-                            <h3>Biofeedback Integration</h3>
-                            <p>Real-time monitoring of heart rate, skin conductance, and other biosignals to personalize your experience.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
-                        <div class="feature-card">
-                            <i class="fas fa-users fa-3x mb-3"></i>
-                            <h3>Multi-user Sessions</h3>
-                            <p>Collaborative VR environments for group therapy and social phobia treatment.</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="stat">Rapid, unpredictable movement triggers the amygdala before conscious recognition.</div>
+          </div>
+          <div class="territory-card is-hidden" data-territory="needles">
+            <div>
+              <div class="tag">Trypanophobia</div>
+              <div class="territory-card-visual"><canvas class="terrCanvas" data-terr="needles"></canvas></div>
+              <h3>The Approach</h3>
+              <p>The anticipation is often worse than the needle itself. Vasovagal response can cause fainting before the skin is even touched.</p>
             </div>
-        </section>
-
-        <!-- VR Experience Section -->
-        <section id="experience" class="section">
-            <div class="container">
-                <h2 class="text-center mb-5" data-aos="fade-up">Experience NeuroVR Therapy</h2>
-                <div class="row align-items-center">
-                    <div class="col-md-6" data-aos="fade-right">
-                        <div class="vr-experience">
-                            <img src="https://source.unsplash.com/random/600x400?virtual+reality,therapy" alt="VR Experience" class="img-fluid">
-                            <div class="vr-overlay">
-                                <a href="#" class="neurovr-btn" id="launchDemo">Launch Interactive Demo</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6" data-aos="fade-left">
-                        <h3>Your Journey to Freedom</h3>
-                        <p>Step into a world where your fears no longer control you. Our VR experiences are meticulously crafted to provide a safe, gradual exposure to your phobias, allowing you to build confidence and resilience at your own pace.</p>
-                        <div class="mt-4">
-                            <h4>Average User Progress</h4>
-                            <div class="d-flex align-items-center">
-                                <svg class="progress-ring" width="120" height="120">
-                                    <circle class="progress-ring__circle" stroke="white" stroke-width="4" fill="transparent" r="52" cx="60" cy="60"/>
-                                </svg>
-                                <div class="ms-3">
-                                    <h3 id="progressPercentage">0%</h3>
-                                    <p>Improvement after 5 sessions</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="stat">Needle avoidance can quietly delay medical care for years.</div>
+          </div>
+          <div class="territory-card is-hidden" data-territory="crowds">
+            <div>
+              <div class="tag">Agoraphobia</div>
+              <div class="territory-card-visual"><canvas class="terrCanvas" data-terr="crowds"></canvas></div>
+              <h3>The Press</h3>
+              <p>Too many exits, no clear line back out. Crowd avoidance tends to shrink someone's world long before it gets named.</p>
             </div>
-        </section>
-
-        <!-- Research Section -->
-        <section id="research" class="section bg-dark">
-            <div class="container">
-                <h2 class="text-center mb-5" data-aos="fade-up">Backed by Science</h2>
-                <div class="row">
-                    <div class="col-md-6" data-aos="fade-right">
-                        <div class="research-paper">
-                            <h3>Neuroscience of VR Therapy</h3>
-                            <p>Our latest research reveals significant neuroplastic changes in amygdala response after just 3 weeks of NeuroVR Therapy sessions.</p>
-                            <a href="#" class="btn btn-outline-light mt-3">Read Full Paper</a>
-                        </div>
-                    </div>
-                    <div class="col-md-6" data-aos="fade-left">
-                        <div class="research-paper">
-                            <h3>Clinical Trial Results</h3>
-                            <p>A randomized controlled trial showed an 85% reduction in phobia symptoms compared to traditional cognitive-behavioral therapy.</p>
-                            <a href="#" class="btn btn-outline-light mt-3">View Study</a>
-                        </div>
-                    </div>
-                </div>
+            <div class="stat">Social and spatial anxiety converge in environments with high density and low control.</div>
+          </div>
+          <div class="territory-card is-prev" data-territory="speaking">
+            <div>
+              <div class="tag">Glossophobia</div>
+              <div class="territory-card-visual"><canvas class="terrCanvas" data-terr="speaking"></canvas></div>
+              <h3>The Clearing</h3>
+              <p>Every eye in the room, and nowhere left to look. Performance anxiety is common enough that most people will feel it at least once.</p>
             </div>
-        </section>
+            <div class="stat">The fear of evaluation activates the same neural circuits as physical threat.</div>
+          </div>
+        </div>
+        <div class="territory-controls">
+          <button class="territory-btn" id="terrPrev" aria-label="Previous territory">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2"/></svg>
+          </button>
+          <button class="territory-btn" id="terrNext" aria-label="Next territory">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2"/></svg>
+          </button>
+        </div>
+      </div>
+      <div>
+        <div class="territory-chips" id="territoryChips">
+          <button class="territory-chip is-active" data-territory="heights">Heights</button>
+          <button class="territory-chip" data-territory="flying">Flying</button>
+          <button class="territory-chip" data-territory="spiders">Spiders</button>
+          <button class="territory-chip" data-territory="needles">Needles</button>
+          <button class="territory-chip" data-territory="crowds">Crowds</button>
+          <button class="territory-chip" data-territory="speaking">Speaking</button>
+        </div>
+        <p style="color:var(--text-soft);font-size:15px;line-height:1.75;">Each territory has its own neural signature — a unique pattern of amygdala activation, heart rate variability, and avoidance behavior. Our system recognizes these patterns and adapts exposure intensity in real time.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <!-- Team Section -->
-        <section id="team" class="section">
-            <div class="container">
-                <h2 class="text-center mb-5" data-aos="fade-up">Meet Our Expert Team</h2>
-                <div class="row">
-                    <div class="col-md-4" data-aos="fade-up">
-                        <div class="team-member">
-                            <img src="1000_F_592209262_dQX4S2eCqN4irJR5s9SHkZ83HGLrGxOd.jpg" alt="Dr. Sarah Johnson">
-                            <h4>Dr. Sarah Johnson</h4>
-                            <p>Neuroscientist & Founder</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                        <div class="team-member">
-                            <img src="happy-smiling-young-man-avatar-3d-portrait-of-a-man-cartoon-character-people-illustration-isolated-on-white-background-vector.jpg" alt="Dr. Michael Chen">
-                            <h4>Dr. Michael Chen</h4>
-                            <p>VR Technology Lead</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
-                        <div class="team-member">
-                            <img src="happy-smiling-young-man-avatar-3d-portrait-of-a-man-cartoon-character-people-illustration-isolated-on-white-background-vector.jpg" alt="Dr. Emily Rodriguez">
-                            <h4>Dr. Emily Rodriguez</h4>
-                            <p>Clinical Psychologist</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+<section class="section section-alt" id="route">
+  <div class="section-inner">
+    <div class="section-eyebrow"><span class="num">02</span> Waypoint — Route</div>
+    <h2>Exposure, measured. Adaptation, logged.</h2>
+    <p class="section-lede">Every session retraces the same four-point route, in the same order, because the order is what makes it safe. The nervous system learns through repetition.</p>
 
-        <!-- Testimonials Section -->
-        <section id="testimonials" class="section bg-dark">
-            <div class="container">
-                <h2 class="text-center mb-5" data-aos="fade-up">Success Stories</h2>
-                <div class="row">
-                    <div class="col-md-4" data-aos="fade-up">
-                        <div class="testimonial-card">
-                            <p>"After years of struggling with acrophobia, NeuroVR Therapy has given me the freedom to enjoy breathtaking views without panic. It's truly life-changing!"</p>
-                            <footer class="blockquote-footer mt-3">Sarah M., Overcome fear of heights</footer>
-                        </div>
-                    </div>
-                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                        <div class="testimonial-card">
-                            <p>"The immersive VR sessions helped me confront my social anxiety in a controlled environment. Now, I feel confident in real-world social situations."</p>
-                            <footer class="blockquote-footer mt-3">John D., Conquered social anxiety</footer>
-                        </div>
-                    </div>
-                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
-                        <div class="testimonial-card">
-                            <p>"As a veteran with PTSD, I was skeptical at first. But the NeuroVR Therapy has significantly reduced my symptoms and improved my quality of life."</p>
-                            <footer class="blockquote-footer mt-3">Michael R., PTSD recovery</footer>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- FAQ Section -->
-        <section id="faq" class="section">
-            <div class="container">
-                <h2 class="text-center mb-5" data-aos="fade-up">Frequently Asked Questions</h2>
-                <div class="row">
-                    <div class="col-md-6" data-aos="fade-up">
-                        <div class="faq-item">
-                            <h4>How does NeuroVR Therapy work?</h4>
-                            <div class="faq-answer">
-                                <p>NeuroVR Therapy combines virtual reality technology with evidence-based psychological techniques to create immersive environments where you can safely confront and overcome your phobias. The therapy is personalized and adapts to your progress in real-time.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
-                        <div class="faq-item">
-                            <h4>Is NeuroVR Therapy safe?</h4>
-                            <div class="faq-answer">
-                                <p>Yes, NeuroVR Therapy is completely safe. The virtual environments are carefully designed and controlled, allowing you to face your fears gradually and at your own pace. Our team of expert psychologists oversees the entire process to ensure your well-being.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        
-
-        <!-- CTA Section -->
-        <section class="cta-section">
-            <div class="container text-center">
-                <h2 class="mb-4" data-aos="fade-up">Ready to Transform Your Life?</h2>
-                <p class="lead mb-4" data-aos="fade-up" data-aos-delay="200">Take the first step towards a phobia-free future with NeuroVR Therapy.</p>
-                <a href="#contact" class="neurovr-btn btn-lg" data-aos="fade-up" data-aos-delay="400">Start Your Journey</a>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="section">
-            <div class="container">
-                <h2 class="text-center mb-5" data-aos="fade-up">Get in Touch</h2>
-                <div class="row">
-                    <div class="col-md-6 offset-md-3">
-                        <form data-aos="fade-up" id="contactForm">
-                            <div class="mb-3">
-                                <input type="text" class="form-control" placeholder="Your Name" required>
-                            </div>
-                            <div class="mb-3">
-                                <input type="email" class="form-control" placeholder="Your Email" required>
-                            </div>
-                            <div class="mb-3">
-                                <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
-                            </div>
-                            <button type="submit" class="neurovr-btn w-100">Send Message</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4">
-                        <h4>NeuroVR Therapy</h4>
-                        <p>Revolutionizing mental health treatment through virtual reality and neuroscience.</p>
-                    </div>
-                    <div class="col-md-4">
-                        <h4>Quick Links</h4>
-                        <ul class="list-unstyled">
-                            <li><a href="#home">Home</a></li>
-                            <li><a href="#about">About</a></li>
-                            <li><a href="#features">Features</a></li>
-                            <li><a href="#experience">Experience</a></li>
-                            <li><a href="#research">Research</a></li>
-                            <li><a href="#team">Team</a></li>
-                            <li><a href="#testimonials">Testimonials</a></li>
-                            <li><a href="#contact">Contact</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-4">
-                        <h4>Connect With Us</h4>
-                        <ul class="list-inline">
-                            <li class="list-inline-item"><a href="#"><i class="fab fa-facebook fa-2x"></i></a></li>
-                            <li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-2x"></i></a></li>
-                            <li class="list-inline-item"><a href="#"><i class="fab fa-instagram fa-2x"></i></a></li>
-                            <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin fa-2x"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <hr>
-                <div class="text-center">
-                    <p>&copy; 2024 NeuroVR Therapy. All rights reserved.</p>
-                </div>
-            </div>
-        </footer>
+    <div class="route-visual">
+      <canvas id="routeCanvas"></canvas>
     </div>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.14/lottie.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 1000,
-            once: true
-        });
+    <div class="route-waypoints" id="routeWaypoints">
+      <div class="waypoint">
+        <div class="num">1</div>
+        <h4>Sight the territory</h4>
+        <p>The headset places you at the edge of what you avoid, at a bearing you set yourself. You control the entry point.</p>
+      </div>
+      <div class="waypoint">
+        <div class="num">2</div>
+        <h4>Hold the bearing</h4>
+        <p>Heart rate, breath, and galvanic skin response are read continuously while you stay present in the scene.</p>
+      </div>
+      <div class="waypoint">
+        <div class="num">3</div>
+        <h4>Let it settle</h4>
+        <p>As arousal eases, the system holds position. The body logs the territory as passable without retreat.</p>
+      </div>
+      <div class="waypoint">
+        <div class="num">4</div>
+        <h4>Mark the route</h4>
+        <p>The new bearing is recorded and retraced across sessions until it holds without the headset.</p>
+      </div>
+    </div>
 
-        // Preloader
-        window.addEventListener('load', function() {
-            const preloader = document.getElementById('preloader');
-            preloader.style.display = 'none';
-        });
+    <div class="itinerary" style="margin-top:80px;">
+      <div class="itin-row">
+        <div class="itin-week">Week 0</div>
+        <div><h4>Assessment and baseline</h4><p>A licensed clinician evaluates phobia severity and medical history, then sets your personal safety thresholds and neural targets.</p></div>
+      </div>
+      <div class="itin-row">
+        <div class="itin-week">Week 1–2</div>
+        <div><h4>Foundation sessions</h4><p>Low-intensity exposure paired with guided breathing, while you learn to read your own biofeedback signatures.</p></div>
+      </div>
+      <div class="itin-row">
+        <div class="itin-week">Week 3–5</div>
+        <div><h4>Active exposure</h4><p>Intensity scales with your body's real data — never faster than you can hold, never so slow it stalls.</p></div>
+      </div>
+      <div class="itin-row">
+        <div class="itin-week">Week 6–8</div>
+        <div><h4>Integration</h4><p>Real-world practice with take-home tools, and optional booster sessions to keep the route open.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
+<section class="section" id="neural">
+  <div class="section-inner">
+    <div class="section-eyebrow">System Architecture</div>
+    <h2>How the nervous system remaps.</h2>
+    <p class="section-lede">Fear extinction isn't forgetting — it's learning something new. The amygdala keeps the old map, but the prefrontal cortex draws a safer one.</p>
 
-        // Lottie animation
-        const heroLottie = lottie.loadAnimation({
-            container: document.getElementById('hero-lottie'),
-            renderer: 'svg',
-            loop: true,
-            autoplay: true,
-            path: 'https://assets5.lottiefiles.com/packages/lf20_jcikwtux.json' // Replace with your Lottie JSON file
-        });
+    <div class="neural-grid">
+      <div class="neural-cell">
+        <div class="neural-icon">🧠</div>
+        <div class="index">01 / Amygdala</div>
+        <h4>Threat Detection</h4>
+        <p>The amygdala fires within 12 milliseconds of encountering a trigger. It doesn't ask permission — it activates the sympathetic cascade before conscious thought.</p>
+      </div>
+      <div class="neural-cell">
+        <div class="neural-icon">📡</div>
+        <div class="index">02 / Biofeedback Loop</div>
+        <h4>Real-Time Read</h4>
+        <p>Heart rate variability, respiratory sinus arrhythmia, and skin conductance feed into the exposure engine, adjusting scene intensity within seconds.</p>
+      </div>
+      <div class="neural-cell">
+        <div class="neural-icon">🔄</div>
+        <div class="index">03 / Extinction</div>
+        <h4>Safety Learning</h4>
+        <p>Repeated exposure without harm creates a new neural association. The old pathway remains, but the prefrontal cortex learns to inhibit it.</p>
+      </div>
+      <div class="neural-cell">
+        <div class="neural-icon">🗺️</div>
+        <div class="index">04 / Hippocampus</div>
+        <h4>Context Coding</h4>
+        <p>The hippocampus tags memories with context. VR provides a safe context for reconsolidation, so the fear memory updates without the danger.</p>
+      </div>
+      <div class="neural-cell">
+        <div class="neural-icon">🎯</div>
+        <div class="index">05 / Prefrontal</div>
+        <h4>Executive Override</h4>
+        <p>The ventromedial prefrontal cortex exerts top-down control. As it strengthens, the subjective feeling of control returns — and the phobia loses power.</p>
+      </div>
+      <div class="neural-cell">
+        <div class="neural-icon">💾</div>
+        <div class="index">06 / Consolidation</div>
+        <h4>Memory Update</h4>
+        <p>Sleep-dependent consolidation locks in the new map. We schedule sessions to align with natural reconsolidation windows.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-        // Progress ring animation
-        const circle = document.querySelector('.progress-ring__circle');
-        const radius = circle.r.baseVal.value;
-        const circumference = radius * 2 * Math.PI;
+<section class="section section-alt" id="instruments">
+  <div class="section-inner">
+    <div class="section-eyebrow"><span class="num">03</span> Waypoint — Instruments</div>
+    <h2>Built like a survey kit. Feels like nothing you've tried.</h2>
+    <p class="section-lede">Every instrument is designed to disappear — so the only thing you notice is the progress.</p>
 
-        circle.style.strokeDasharray = `${circumference} ${circumference}`;
-        circle.style.strokeDashoffset = circumference;
+    <div class="bento">
+      <div class="bento-card bento-1">
+        <div>
+          <span class="tag">Live read</span>
+          <h4>Biofeedback loop</h4>
+          <p>Heart rate and breath drive the session in real time. When arousal spikes, the scene responds before you have to ask.</p>
+        </div>
+        <div class="bento-viz"><canvas id="bentoWave"></canvas></div>
+      </div>
+      <div class="bento-card bento-3">
+        <span class="tag">Auto-bearing</span>
+        <h4>AI-paced intensity</h4>
+        <p>Exposure scales session-to-session based on what your body shows, not a fixed script.</p>
+      </div>
+      <div class="bento-card bento-4">
+        <span class="tag">Base camp</span>
+        <h4>Clinician console</h4>
+        <p>Therapists watch session telemetry remotely and set thresholds before a headset goes on.</p>
+      </div>
+      <div class="bento-card bento-5">
+        <span class="tag">12 charted</span>
+        <h4>Territory library</h4>
+        <p>Glass elevators, packed platforms, open-mic stages, waiting rooms — escalating environments per phobia.</p>
+      </div>
+      <div class="bento-card bento-2">
+        <span class="tag">Shared camp</span>
+        <h4>Group sessions</h4>
+        <p>Multiple headsets, one room — built for social anxiety, where the audience is the point.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-        function setProgress(percent) {
-            const offset = circumference - percent / 100 * circumference;
-            circle.style.strokeDashoffset = offset;
-        }
+<section class="section" id="fieldnotes">
+  <div class="section-inner">
+    <div class="section-eyebrow">Field Notes</div>
+    <h2>Not just another therapy app.</h2>
+    <p class="section-lede">How this compares against the alternatives, plainly and without the marketing.</p>
+    <div style="overflow-x:auto;">
+      <table class="ledger">
+        <thead><tr><th>Capability</th><th>Traditional CBT</th><th>Generic VR</th><th class="highlight">NeuroVR</th></tr></thead>
+        <tbody>
+          <tr><td>Real-time biofeedback</td><td class="no">—</td><td class="no">—</td><td class="highlight yes">Yes</td></tr>
+          <tr><td>AI-adaptive intensity</td><td class="no">—</td><td class="no">—</td><td class="highlight yes">Yes</td></tr>
+          <tr><td>Licensed clinician oversight</td><td class="yes">Yes</td><td class="no">—</td><td class="highlight yes">Yes</td></tr>
+          <tr><td>Immersive VR environments</td><td class="no">—</td><td class="yes">Yes</td><td class="highlight yes">Yes</td></tr>
+          <tr><td>Session telemetry & tracking</td><td class="no">—</td><td class="no">—</td><td class="highlight yes">Yes</td></tr>
+          <tr><td>Insurance documentation</td><td class="yes">Yes</td><td class="no">—</td><td class="highlight yes">Yes</td></tr>
+          <tr><td>Neural reconsolidation focus</td><td class="no">—</td><td class="no">—</td><td class="highlight yes">Yes</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
 
-        // Animate progress on scroll
-        const progressSection = document.querySelector('#experience');
-        const progressPercentage = document.getElementById('progressPercentage');
+<section class="section section-alt" id="bearing">
+  <div class="section-inner">
+    <div class="section-eyebrow"><span class="num">04</span> Waypoint — Bearing</div>
+    <h2>Take a bearing before the expedition.</h2>
+    <p class="section-lede">Set the intensity, then breathe through it — the same loop a session runs, condensed to a minute.</p>
 
-        window.addEventListener('scroll', () => {
-            const scrollPosition = window.scrollY;
-            const sectionPosition = progressSection.offsetTop;
-            const windowHeight = window.innerHeight;
+    <div class="bearing-panel">
+      <div class="bearing-controls">
+        <div class="chip-row" id="bearingChips">
+          <button class="bearing-chip is-active" data-scenario="Glass elevator">Heights</button>
+          <button class="bearing-chip" data-scenario="Packed platform">Crowds</button>
+          <button class="bearing-chip" data-scenario="Open-mic stage">Speaking</button>
+        </div>
+        <div class="intensity-row">
+          <label for="intensityRange">Exposure intensity</label>
+          <input type="range" id="intensityRange" min="1" max="5" value="3">
+          <div class="intensity-scale"><span>Mild</span><span>Moderate</span><span>Intense</span></div>
+        </div>
+        <button class="breathe-btn" id="breatheBtn">
+          <span>Breathe with me</span>
+        </button>
+      </div>
 
-            if (scrollPosition > sectionPosition - windowHeight / 2) {
-                gsap.to(progressPercentage, {
-                    innerHTML: '75%',
-                    duration: 2,
-                    onUpdate: function() {
-                        setProgress(parseInt(progressPercentage.innerHTML));
-                    }
-                });
-            }
-        });
+      <div class="bearing-stage">
+        <canvas id="gaugeCanvas" width="260" height="140"></canvas>
+        <div class="bearing-label" id="bearingLabel">Glass elevator, intensity 3</div>
+        <div class="breath-dots" id="breathDots">
+          <div class="breath-dot"></div><div class="breath-dot"></div><div class="breath-dot"></div><div class="breath-dot"></div>
+        </div>
+        <div class="bearing-readout"><b id="bearingArousal">54%</b>simulated arousal</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        // 3D Brain Model
-        function initBrainModel() {
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ alpha: true });
-            renderer.setSize(400, 400);
-            document.getElementById('brainModel').appendChild(renderer.domElement);
+<section class="section" id="telemetry">
+  <div class="section-inner">
+    <div class="section-eyebrow"><span class="num">05</span> Waypoint — Telemetry</div>
+    <h2>Numbers from the pilot program, not the brochure.</h2>
+    <p class="section-lede">Raw data from our first cohort. No smoothing, no selection bias — just what happened when 214 people completed the full route.</p>
 
-            const geometry = new THREE.SphereGeometry(2, 32, 32);
-            const material = new THREE.MeshBasicMaterial({ 
-                color: 0x6C63FF, 
-                wireframe: true 
-            });
-            const brain = new THREE.Mesh(geometry, material);
-            scene.add(brain);
+    <div class="telemetry-grid">
+      <div class="telemetry-block">
+        <div class="telemetry-num"><span class="counter" data-target="85">0</span><span class="suffix">%</span></div>
+        <div class="telemetry-label">of pilot participants reported less avoidance behavior after six sessions.</div>
+        <div class="telemetry-chart"><canvas class="telemetryCanvas" data-color="accent" data-points="20,35,28,45,52,48,61,58,72,68,85"></canvas></div>
+      </div>
+      <div class="telemetry-block">
+        <div class="telemetry-num"><span class="counter" data-target="3">0</span><span class="suffix"> wks</span></div>
+        <div class="telemetry-label">median time to a measurable drop in baseline stress response.</div>
+        <div class="telemetry-chart"><canvas class="telemetryCanvas" data-color="alert" data-points="80,72,65,58,52,48,42,38,35,32,28"></canvas></div>
+      </div>
+      <div class="telemetry-block">
+        <div class="telemetry-num"><span class="counter" data-target="92">0</span><span class="suffix">%</span></div>
+        <div class="telemetry-label">of started sessions were completed without early exit or clinician intervention.</div>
+        <div class="telemetry-chart"><canvas class="telemetryCanvas" data-color="neural" data-points="45,55,62,68,74,78,82,85,88,90,92"></canvas></div>
+      </div>
+    </div>
 
-            camera.position.z = 5;
+    <details style="margin-top:40px;">
+      <summary style="font-family:var(--font-mono);font-size:10px;color:var(--text-faint);cursor:pointer;text-transform:uppercase;letter-spacing:.08em;">Methodology and sample</summary>
+      <p style="margin-top:16px;color:var(--text-soft);font-size:14px;max-width:680px;line-height:1.7;">Figures reflect an internal pilot cohort (n=214), self-reported follow-up surveys, and session telemetry — not an independent peer-reviewed trial. A fuller writeup is in progress as the clinical program expands. Completion rate excludes technical failures.</p>
+    </details>
+  </div>
+</section>
 
-            function animate() {
-                requestAnimationFrame(animate);
-                brain.rotation.x += 0.01;
-                brain.rotation.y += 0.01;
-                renderer.render(scene, camera);
-            }
-            animate();
-        }
+<section class="section section-alt" id="provisions">
+  <div class="section-inner">
+    <div class="section-eyebrow">Provisions</div>
+    <h2>Clear pricing for the expedition ahead.</h2>
+    <p class="section-lede">Every package includes the full platform, clinician oversight, and biofeedback hardware. No hidden fees, no upsells.</p>
 
-        initBrainModel();
+    <div class="provisions-grid">
+      <div class="provision-card">
+        <div class="provision-tag">Recon</div>
+        <div class="provision-name">Assessment</div>
+        <div class="provision-price">$199<span> one-time</span></div>
+        <ul class="provision-features">
+          <li>Initial clinical assessment</li>
+          <li>Baseline stress measurement</li>
+          <li>Personalized route plan</li>
+          <li>1 trial VR session</li>
+        </ul>
+        <a href="#begin" class="btn-ghost" style="width:100%;justify-content:center;">Get started</a>
+      </div>
+      <div class="provision-card is-featured">
+        <div class="provision-tag is-featured">Most chosen</div>
+        <div class="provision-name">Full Expedition</div>
+        <div class="provision-price">$1,499<span> / 8 sessions</span></div>
+        <ul class="provision-features">
+          <li>8 guided VR sessions</li>
+          <li>Real-time biofeedback</li>
+          <li>Clinician console access</li>
+          <li>Progress dashboard</li>
+          <li>2 follow-up check-ins</li>
+          <li>Insurance documentation</li>
+        </ul>
+        <a href="#begin" class="btn-primary" style="width:100%;justify-content:center;">Chart this route</a>
+      </div>
+      <div class="provision-card">
+        <div class="provision-tag">Standing Camp</div>
+        <div class="provision-name">Annual Care</div>
+        <div class="provision-price">$2,999<span> / year</span></div>
+        <ul class="provision-features">
+          <li>Unlimited VR sessions</li>
+          <li>Priority scheduling</li>
+          <li>Group session access</li>
+          <li>24/7 clinician chat</li>
+          <li>Annual re-assessment</li>
+        </ul>
+        <a href="#begin" class="btn-ghost" style="width:100%;justify-content:center;">Contact us</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-        // Interactive VR Demo
-        document.getElementById('launchDemo').addEventListener('click', function(e) {
-            e.preventDefault();
-            // Here you would typically launch a WebVR experience
-            alert('Launching VR Demo... (This is where you would integrate your WebVR experience)');
-        });
+<section class="section" id="dispatches">
+  <div class="section-inner">
+    <div class="section-eyebrow">Dispatches</div>
+    <h2>Logged by travelers who came back.</h2>
+    <p class="section-lede">First-hand accounts from the pilot program. Names are initials only.</p>
 
-        // FAQ Accordion
-        document.querySelectorAll('.faq-item').forEach(item => {
-            item.addEventListener('click', event => {
-                const answer = item.querySelector('.faq-answer');
-                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
-            });
-        });
+    <div class="dispatch-track" id="dispatchTrack">
+      <article class="dispatch-card">
+        <p>"I used to plan trips around avoiding balconies. Six sessions in, I stood on a rooftop bar without flinching. The map actually works."</p>
+        <footer><span>S.M.</span><span class="tag">Heights — session 6</span></footer>
+      </article>
+      <article class="dispatch-card">
+        <p>"The headset put me back in a lecture hall full of eyes. By session four, the panic didn't show up the same way. It was still there, but smaller."</p>
+        <footer><span>J.D.</span><span class="tag">Speaking — session 4</span></footer>
+      </article>
+      <article class="dispatch-card">
+        <p>"As a veteran, I was sure nothing built in a lab would touch what I carry. I was wrong, and glad to be. The biofeedback made it feel scientific, not spiritual."</p>
+        <footer><span>M.R.</span><span class="tag">PTSD — session 9</span></footer>
+      </article>
+      <article class="dispatch-card">
+        <p>"I couldn't look at a needle without sweating. Now I donate blood regularly. The change feels permanent, not just managed."</p>
+        <footer><span>E.T.</span><span class="tag">Needles — session 5</span></footer>
+      </article>
+      <article class="dispatch-card">
+        <p>"My fear of flying was costing me promotions. After the program, I slept through half a 14-hour flight to Singapore."</p>
+        <footer><span>D.K.</span><span class="tag">Flying — session 7</span></footer>
+      </article>
+    </div>
+  </div>
+</section>
 
-        // Form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Here you would typically handle form submission
-            alert('Thank you for your message. We will get back to you soon!');
-            this.reset();
-        });
+<section class="section section-alt" id="crew">
+  <div class="section-inner">
+    <div class="section-eyebrow">Crew</div>
+    <h2>Three disciplines, one route.</h2>
+    <p class="section-lede">Neuroscience, engineering, and clinical psychology — each essential, none sufficient alone.</p>
 
-        // WebGL Background
-        function initWebGLBackground() {
-            const canvas = document.getElementById('neuroVRCanvas');
-            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.z = 5;
+    <div class="crew-grid">
+      <div class="crew-card">
+        <div class="crew-avatar" style="background:linear-gradient(135deg,#E0F2FE,#F0F9FF);">SJ</div>
+        <h4>Dr. Sarah Johnson</h4>
+        <div class="role">Neuroscientist & Founder</div>
+      </div>
+      <div class="crew-card">
+        <div class="crew-avatar" style="background:linear-gradient(135deg,#EEF2FF,#E0E7FF);">MC</div>
+        <h4>Dr. Michael Chen</h4>
+        <div class="role">VR Systems Lead</div>
+      </div>
+      <div class="crew-card">
+        <div class="crew-avatar" style="background:linear-gradient(135deg,#ECFDF5,#D1FAE5);">ER</div>
+        <h4>Dr. Emily Rodriguez</h4>
+        <div class="role">Clinical Psychologist</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-            const geometry = new THREE.BufferGeometry();
-            const vertices = [];
-            for (let i = 0; i < 10000; i++) {
-                vertices.push(THREE.MathUtils.randFloatSpread(2000)); // x
-                vertices.push(THREE.MathUtils.randFloatSpread(2000)); // y
-                vertices.push(THREE.MathUtils.randFloatSpread(2000)); // z
-            }
-            geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+<section class="section" id="faq">
+  <div class="section-inner">
+    <div class="section-eyebrow">Before You Set Out</div>
+    <h2>Questions, answered plainly.</h2>
+    <p class="section-lede">No jargon, no obfuscation. If something isn't clear, we haven't done our job.</p>
 
-            const material = new THREE.PointsMaterial({ color: 0x6C63FF, size: 2 });
-            const points = new THREE.Points(geometry, material);
-            scene.add(points);
+    <div class="faq-list">
+      <div class="faq-row">
+        <button class="faq-q" aria-expanded="false">How does NeuroVR Therapy actually work?<span class="toggle-icon">+</span></button>
+        <div class="faq-a"><p>It pairs VR exposure with live biofeedback: you face a controlled version of your trigger while your heart rate and breath shape the pace, so intensity always matches what your body can handle.</p></div>
+      </div>
+      <div class="faq-row">
+        <button class="faq-q" aria-expanded="false">Is it safe without a therapist in the room?<span class="toggle-icon">+</span></button>
+        <div class="faq-a"><p>Every program starts with a clinician setting safety thresholds, and sessions can be monitored remotely. You're never left to escalate intensity alone.</p></div>
+      </div>
+      <div class="faq-row">
+        <button class="faq-q" aria-expanded="false">How many sessions before I notice a difference?<span class="toggle-icon">+</span></button>
+        <div class="faq-a"><p>Pilot participants saw measurable change at a median of three weeks, though severity and session frequency both shift that timeline.</p></div>
+      </div>
+      <div class="faq-row">
+        <button class="faq-q" aria-expanded="false">Do I need my own VR headset?<span class="toggle-icon">+</span></button>
+        <div class="faq-a"><p>No — clinic locations provide fitted headsets and sensors. A take-home option is in pilot for a small number of programs.</p></div>
+      </div>
+      <div class="faq-row">
+        <button class="faq-q" aria-expanded="false">Is this covered by insurance?<span class="toggle-icon">+</span></button>
+        <div class="faq-a"><p>Many plans cover VR-assisted exposure therapy under behavioral health benefits. We provide documentation for reimbursement claims.</p></div>
+      </div>
+      <div class="faq-row">
+        <button class="faq-q" aria-expanded="false">Can children use NeuroVR Therapy?<span class="toggle-icon">+</span></button>
+        <div class="faq-a"><p>Programs are designed for adults 18+. A pediatric version is in development with child psychologists, launching in 2027.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-            function animate() {
-                requestAnimationFrame(animate);
-                points.rotation.x += 0.0005;
-                points.rotation.y += 0.0005;
-                renderer.render(scene, camera);
-            }
+<section class="log-section" id="explog">
+  <div class="container">
+    <h3>Join the expedition log.</h3>
+    <p>Research updates, new territories, and early access to group sessions.</p>
+    <form class="log-form" id="newsletterForm">
+      <input type="email" placeholder="your@email.com" required aria-label="Email for expedition log">
+      <button type="submit" class="btn-primary">Subscribe</button>
+    </form>
+    <p class="form-success" id="newsletterSuccess">You're logged. Welcome to the route.</p>
+  </div>
+</section>
 
-            function onWindowResize() {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            }
+<section class="section begin-section" id="begin">
+  <div class="section-inner">
+    <div class="section-eyebrow" style="justify-content:center;"><span class="num">06</span> Waypoint — Begin</div>
+    <h2>Fear has a half-life.<br>Start the clock.</h2>
+    <p class="section-lede">Tell us what you're working to overcome. A clinician will reach out to set up an assessment within two business days.</p>
 
-            window.addEventListener('resize', onWindowResize, false);
-            onWindowResize();
-            animate();
-        }
+    <form class="begin-form" id="contactForm">
+      <div class="field-group">
+        <label for="cf-name">Name</label>
+        <input type="text" id="cf-name" required placeholder="Your name">
+      </div>
+      <div class="field-group">
+        <label for="cf-email">Email</label>
+        <input type="email" id="cf-email" required placeholder="your@email.com">
+      </div>
+      <div class="field-group">
+        <label for="cf-message">What are you hoping to work on?</label>
+        <textarea id="cf-message" rows="3" required placeholder="Describe your phobia or concern..."></textarea>
+      </div>
+      <button type="submit" class="btn-primary magnetic">Send and start your assessment</button>
+      <p class="form-success" id="formSuccess">Sent. A clinician will reach out within two business days.</p>
+    </form>
+  </div>
+</section>
 
-        initWebGLBackground();
-    </script>
+</main>
+
+<footer class="site-footer">
+  <span>&copy; 2026 NeuroVR Therapy — Neural Cartography</span>
+  <div class="f-links">
+    <a href="#" onclick="return false;">Privacy</a>
+    <a href="#" onclick="return false;">Terms</a>
+    <a href="#" onclick="return false;">Instagram</a>
+    <a href="#" onclick="return false;">LinkedIn</a>
+  </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none"><path d="M12 4v16M6 10l6-6 6 6" stroke="currentColor" stroke-width="1.6"/></svg>
+</button>
+
+<script>
+(function(){
+"use strict";
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isTouch = window.matchMedia('(pointer:coarse)').matches;
+
+/* CURSOR */
+if(!isTouch){
+  const cursor = document.getElementById('cursor');
+  const dot = cursor.querySelector('.cursor-dot');
+  const ring = cursor.querySelector('.cursor-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove', e=>{ mx=e.clientX; my=e.clientY; });
+  function animateCursor(){
+    rx += (mx - rx) * 0.15;
+    ry += (my - ry) * 0.15;
+    dot.style.transform = `translate(${mx}px,${my}px) translate(-50%,-50%)`;
+    ring.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`;
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+  document.querySelectorAll('a, button, .magnetic, input, textarea').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{dot.classList.add('is-hover');ring.classList.add('is-hover');});
+    el.addEventListener('mouseleave',()=>{dot.classList.remove('is-hover');ring.classList.remove('is-hover');});
+  });
+  document.querySelectorAll('.magnetic').forEach(el=>{
+    el.addEventListener('mousemove', e=>{
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width/2;
+      const y = e.clientY - rect.top - rect.height/2;
+      el.style.transform = `translate(${x*0.2}px,${y*0.2}px)`;
+    });
+    el.addEventListener('mouseleave',()=>{ el.style.transform=''; });
+  });
+}
+
+/* PRELOADER */
+const preloader = document.getElementById('preloader');
+const preloaderFill = document.getElementById('preloaderFill');
+const preloaderPercent = document.getElementById('preloaderPercent');
+const preloaderCanvas = document.getElementById('preloaderCanvas');
+const pCtx = preloaderCanvas.getContext('2d');
+let pW, pH, pParticles = [];
+
+function resizePreloader(){
+  pW = preloaderCanvas.width = window.innerWidth;
+  pH = preloaderCanvas.height = window.innerHeight;
+}
+resizePreloader();
+window.addEventListener('resize', resizePreloader);
+
+for(let i=0;i<60;i++){
+  pParticles.push({
+    x:Math.random()*pW, y:Math.random()*pH,
+    vx:(Math.random()-0.5)*0.5, vy:(Math.random()-0.5)*0.5,
+    r:Math.random()*2+1, phase:Math.random()*Math.PI*2,
+    color: i % 3 === 0 ? '14,165,233' : (i % 3 === 1 ? '56,189,248' : '99,102,241')
+  });
+}
+
+let pAnimating = true;
+function drawPreloader(){
+  if(!pAnimating) return;
+  pCtx.fillStyle = 'rgba(241,245,249,0.2)';
+  pCtx.fillRect(0,0,pW,pH);
+  pParticles.forEach((p,i)=>{
+    p.x += p.vx; p.y += p.vy;
+    if(p.x<0||p.x>pW) p.vx*=-1;
+    if(p.y<0||p.y>pH) p.vy*=-1;
+    const pulse = Math.sin(Date.now()*0.002 + p.phase)*0.5+0.5;
+    pCtx.beginPath();
+    pCtx.arc(p.x,p.y,p.r*pulse+0.5,0,Math.PI*2);
+    pCtx.fillStyle = `rgba(${p.color},${0.3*pulse+0.1})`;
+    pCtx.fill();
+    for(let j=i+1;j<pParticles.length;j++){
+      const q = pParticles[j];
+      const dx = p.x-q.x, dy = p.y-q.y;
+      const dist = Math.sqrt(dx*dx+dy*dy);
+      if(dist<120){
+        pCtx.beginPath();
+        pCtx.moveTo(p.x,p.y); pCtx.lineTo(q.x,q.y);
+        pCtx.strokeStyle = `rgba(${p.color},${0.12*(1-dist/120)})`;
+        pCtx.lineWidth = 0.5;
+        pCtx.stroke();
+      }
+    }
+  });
+  requestAnimationFrame(drawPreloader);
+}
+drawPreloader();
+
+let loadProgress = 0;
+const loadInterval = setInterval(()=>{
+  loadProgress += Math.random()*15+5;
+  if(loadProgress>=100){
+    loadProgress = 100;
+    clearInterval(loadInterval);
+    setTimeout(()=>{
+      pAnimating = false;
+      preloader.classList.add('is-done');
+      initHeroReveal();
+    }, 400);
+  }
+  preloaderFill.style.width = loadProgress+'%';
+  preloaderPercent.textContent = Math.round(loadProgress)+'%';
+}, 150);
+
+/* HERO CANVAS */
+const heroCanvas = document.getElementById('heroCanvas');
+const hCtx = heroCanvas.getContext('2d');
+let hW, hH, hParticles = [], hMouse = {x:-1000,y:-1000};
+
+function resizeHero(){
+  hW = heroCanvas.width = heroCanvas.offsetWidth;
+  hH = heroCanvas.height = heroCanvas.offsetHeight;
+}
+resizeHero();
+window.addEventListener('resize', resizeHero);
+
+for(let i=0;i<100;i++){
+  const colors = ['14,165,233', '56,189,248', '99,102,241', '125,211,252'];
+  hParticles.push({
+    x:Math.random()*hW, y:Math.random()*hH,
+    vx:(Math.random()-0.5)*0.3, vy:(Math.random()-0.5)*0.3,
+    r:Math.random()*1.5+0.5, baseX:Math.random()*hW, baseY:Math.random()*hH,
+    phase:Math.random()*Math.PI*2,
+    color: colors[Math.floor(Math.random()*colors.length)]
+  });
+}
+
+heroCanvas.addEventListener('mousemove', e=>{
+  const rect = heroCanvas.getBoundingClientRect();
+  hMouse.x = e.clientX - rect.left;
+  hMouse.y = e.clientY - rect.top;
+});
+heroCanvas.addEventListener('mouseleave',()=>{hMouse.x=-1000;hMouse.y=-1000;});
+
+function drawHero(){
+  hCtx.fillStyle = 'rgba(248,250,252,0.15)';
+  hCtx.fillRect(0,0,hW,hH);
+  const time = Date.now()*0.0005;
+
+  // Aurora bands
+  for(let i=0;i<3;i++){
+    const bandY = hH*0.3 + i*80 + Math.sin(time*0.5+i)*30;
+    const grad = hCtx.createLinearGradient(0, bandY-20, 0, bandY+20);
+    grad.addColorStop(0, 'rgba(14,165,233,0)');
+    grad.addColorStop(0.5, `rgba(${i===0?'14,165,233':(i===1?'56,189,248':'99,102,241')},0.04)`);
+    grad.addColorStop(1, 'rgba(14,165,233,0)');
+    hCtx.fillStyle = grad;
+    hCtx.fillRect(0, bandY-20, hW, 40);
+  }
+
+  hParticles.forEach((p,i)=>{
+    p.x += p.vx + Math.sin(time + p.phase)*0.2;
+    p.y += p.vy + Math.cos(time + p.phase)*0.2;
+    const dx = p.x - hMouse.x;
+    const dy = p.y - hMouse.y;
+    const dist = Math.sqrt(dx*dx+dy*dy);
+    if(dist<200){
+      const force = (200-dist)/200;
+      p.x += dx/dist * force * 3;
+      p.y += dy/dist * force * 3;
+    }
+    if(p.x<0) p.x=hW; if(p.x>hW) p.x=0;
+    if(p.y<0) p.y=hH; if(p.y>hH) p.y=0;
+
+    const pulse = Math.sin(time*2 + p.phase)*0.3+0.7;
+
+    hCtx.beginPath();
+    hCtx.arc(p.x,p.y,p.r*pulse,0,Math.PI*2);
+    hCtx.fillStyle = `rgba(${p.color},${0.35*pulse+0.1})`;
+    hCtx.fill();
+
+    for(let j=i+1;j<hParticles.length;j++){
+      const q = hParticles[j];
+      const cdx = p.x-q.x, cdy = p.y-q.y;
+      const cdist = Math.sqrt(cdx*cdx+cdy*cdy);
+      if(cdist<100){
+        hCtx.beginPath();
+        hCtx.moveTo(p.x,p.y); hCtx.lineTo(q.x,q.y);
+        hCtx.strokeStyle = `rgba(${p.color},${0.06*(1-cdist/100)})`;
+        hCtx.lineWidth = 0.4;
+        hCtx.stroke();
+      }
+    }
+  });
+
+  hCtx.strokeStyle = 'rgba(14,165,233,0.03)';
+  hCtx.lineWidth = 1;
+  for(let y=0;y<hH;y+=80){
+    hCtx.beginPath();
+    for(let x=0;x<hW;x+=10){
+      const wave = Math.sin(x*0.01 + time)*15 + Math.sin(y*0.02 + time*0.7)*10;
+      if(x===0) hCtx.moveTo(x,y+wave); else hCtx.lineTo(x,y+wave);
+    }
+    hCtx.stroke();
+  }
+  requestAnimationFrame(drawHero);
+}
+drawHero();
+
+/* HERO REVEAL */
+function initHeroReveal(){
+  if(reduceMotion){
+    document.querySelectorAll('.line-inner').forEach(el=>el.classList.add('is-revealed'));
+    document.getElementById('heroLede').classList.add('is-revealed');
+    document.getElementById('heroStats').classList.add('is-revealed');
+    document.getElementById('heroCta').classList.add('is-revealed');
+    document.getElementById('heroCard').classList.add('is-revealed');
+    return;
+  }
+  setTimeout(()=>document.getElementById('heroLine1').classList.add('is-revealed'), 200);
+  setTimeout(()=>document.getElementById('heroLine2').classList.add('is-revealed'), 500);
+  setTimeout(()=>document.getElementById('heroLede').classList.add('is-revealed'), 900);
+  setTimeout(()=>document.getElementById('heroStats').classList.add('is-revealed'), 1100);
+  setTimeout(()=>document.getElementById('heroCta').classList.add('is-revealed'), 1300);
+  setTimeout(()=>document.getElementById('heroCard').classList.add('is-revealed'), 800);
+
+  document.querySelectorAll('.hero-stats .counter').forEach(counter=>{
+    const target = parseInt(counter.dataset.target);
+    const dur = 1500, start = performance.now();
+    function tick(now){
+      const p = Math.min(1,(now-start)/dur);
+      const eased = 1-Math.pow(1-p,3);
+      counter.textContent = Math.round(target*eased).toLocaleString();
+      if(p<1) requestAnimationFrame(tick);
+      else counter.textContent = target.toLocaleString();
+    }
+    setTimeout(()=>requestAnimationFrame(tick), 1200);
+  });
+}
+
+/* PROGRESS */
+const progressBar = document.getElementById('progressBar');
+function updateProgress(){
+  const h = document.documentElement;
+  const scrolled = h.scrollTop / (h.scrollHeight - h.clientHeight) * 100;
+  progressBar.style.width = (isFinite(scrolled)?scrolled:0) + '%';
+}
+document.addEventListener('scroll', updateProgress, {passive:true});
+
+/* NAV */
+const siteNav = document.getElementById('siteNav');
+window.addEventListener('scroll', ()=>{
+  siteNav.classList.toggle('is-scrolled', window.scrollY > 50);
+}, {passive:true});
+
+/* MOBILE NAV */
+const navToggle = document.getElementById('navToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+navToggle.addEventListener('click', ()=>{
+  const isOpen = mobileMenu.classList.contains('is-open');
+  if(!isOpen){
+    mobileMenu.style.display = 'flex';
+    mobileMenu.classList.add('is-open');
+    requestAnimationFrame(()=>mobileMenu.classList.add('is-visible'));
+    navToggle.setAttribute('aria-expanded','true');
+  } else {
+    mobileMenu.classList.remove('is-visible');
+    navToggle.setAttribute('aria-expanded','false');
+    setTimeout(()=>{ mobileMenu.classList.remove('is-open'); mobileMenu.style.display='none'; }, 400);
+  }
+});
+mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  mobileMenu.classList.remove('is-visible');
+  navToggle.setAttribute('aria-expanded','false');
+  setTimeout(()=>{ mobileMenu.classList.remove('is-open'); mobileMenu.style.display='none'; }, 400);
+}));
+
+/* ACTIVE NAV */
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', ()=>{
+  let current = '';
+  sections.forEach(section=>{
+    if(window.scrollY >= section.offsetTop - 300) current = section.getAttribute('id');
+  });
+  navLinks.forEach(link=>{
+    link.classList.toggle('is-active', link.getAttribute('href') === '#'+current);
+  });
+}, {passive:true});
+
+/* BACK TO TOP */
+const backToTop = document.getElementById('backToTop');
+window.addEventListener('scroll', ()=>{
+  backToTop.classList.toggle('is-visible', window.scrollY > 800);
+}, {passive:true});
+backToTop.addEventListener('click', ()=> window.scrollTo({top:0, behavior:reduceMotion?'auto':'smooth'}));
+
+/* SCROLL REVEAL */
+const revealObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting){
+      en.target.classList.add('is-visible');
+      revealObserver.unobserve(en.target);
+    }
+  });
+}, {threshold:0.1, rootMargin:'0px 0px -10% 0px'});
+
+document.querySelectorAll('.section-eyebrow, .section h2, .section-lede, .waypoint, .itin-row, .crew-card').forEach(el=>{
+  revealObserver.observe(el);
+});
+
+/* HERO MAP */
+const mapRange = document.getElementById('mapRange');
+const mapPin = document.getElementById('mapPin');
+const mapRoute = document.getElementById('mapRoute');
+const mapArousal = document.getElementById('mapArousal');
+const mapState = document.getElementById('mapState');
+const mapCoord = document.getElementById('mapCoord');
+const liveDot = document.getElementById('liveDot');
+
+let routeLen = 0;
+try{ routeLen = mapRoute.getTotalLength(); }catch(e){ routeLen = 500; }
+
+function updateMap(val){
+  const t = val/100;
+  let pt = {x:200,y:140};
+  try{ pt = mapRoute.getPointAtLength(routeLen * t); }catch(e){}
+  mapPin.setAttribute('cx', pt.x); mapPin.setAttribute('cy', pt.y);
+  const calm = t >= 0.5;
+  mapPin.classList.toggle('is-calm', calm);
+  liveDot.classList.toggle('is-calm', calm);
+  const arousal = Math.round(92 - 78*t);
+  mapArousal.textContent = arousal + '%';
+  mapState.textContent = t > 0.66 ? 'settled' : (t > 0.33 ? 'easing' : 'disordered');
+  mapCoord.textContent = val + '% calm';
+}
+mapRange.addEventListener('input', e=>updateMap(parseInt(e.target.value,10)));
+updateMap(parseInt(mapRange.value,10));
+
+/* TERRITORY STACK */
+const terrStack = document.getElementById('territoryStack');
+const terrCards = Array.from(terrStack.querySelectorAll('.territory-card'));
+const terrChips = document.querySelectorAll('#territoryChips .territory-chip');
+let terrIndex = 0;
+
+function updateTerrStack(){
+  terrCards.forEach((card,i)=>{
+    card.classList.remove('is-active','is-prev','is-next','is-hidden');
+    if(i===terrIndex) card.classList.add('is-active');
+    else if(i===(terrIndex-1+terrCards.length)%terrCards.length) card.classList.add('is-prev');
+    else if(i===(terrIndex+1)%terrCards.length) card.classList.add('is-next');
+    else card.classList.add('is-hidden');
+  });
+  terrChips.forEach((chip,i)=>{ chip.classList.toggle('is-active', i===terrIndex); });
+}
+document.getElementById('terrNext').addEventListener('click',()=>{ terrIndex=(terrIndex+1)%terrCards.length; updateTerrStack(); });
+document.getElementById('terrPrev').addEventListener('click',()=>{ terrIndex=(terrIndex-1+terrCards.length)%terrCards.length; updateTerrStack(); });
+terrChips.forEach((chip,i)=>{ chip.addEventListener('click',()=>{ terrIndex=i; updateTerrStack(); }); });
+
+/* TERRITORY CANVASES */
+function initTerrCanvases(){
+  document.querySelectorAll('.terrCanvas').forEach(canvas=>{
+    const ctx = canvas.getContext('2d');
+    const type = canvas.dataset.terr;
+    let w, h;
+    function resize(){ w=canvas.width=canvas.offsetWidth; h=canvas.height=canvas.offsetHeight; }
+    resize();
+    new ResizeObserver(resize).observe(canvas);
+    let offset = 0;
+    const colors = {
+      heights: '#0EA5E9',
+      flying: '#38BDF8',
+      spiders: '#6366F1',
+      needles: '#F59E0B',
+      crowds: '#7DD3FC',
+      speaking: '#0EA5E9'
+    };
+    function draw(){
+      ctx.fillStyle = '#F8FAFC';
+      ctx.fillRect(0,0,w,h);
+      ctx.strokeStyle = colors[type] || '#0EA5E9';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      for(let x=0;x<w;x+=5){
+        let y = h/2;
+        if(type==='heights') y += Math.sin(x*0.05+offset)*20 + Math.sin(x*0.02+offset*0.5)*15;
+        else if(type==='flying') y += Math.sin(x*0.03+offset)*25 + Math.random()*5;
+        else if(type==='spiders') y += Math.sin(x*0.08+offset)*10 + Math.sin(x*0.15+offset*2)*8;
+        else if(type==='needles') y = h/2 + (x<w/2?0:Math.sin((x-w/2)*0.1+offset)*30);
+        else if(type==='crowds') y += Math.sin(x*0.04+offset)*15 + Math.sin(x*0.06+offset*1.3)*10;
+        else y += Math.sin(x*0.03+offset)*20;
+        if(x===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+      }
+      ctx.stroke();
+      offset += 0.02;
+      requestAnimationFrame(draw);
+    }
+    draw();
+  });
+}
+initTerrCanvases();
+
+/* ROUTE CANVAS */
+const routeCanvas = document.getElementById('routeCanvas');
+const rCtx = routeCanvas.getContext('2d');
+let rW, rH;
+function resizeRoute(){ rW=routeCanvas.width=routeCanvas.offsetWidth; rH=routeCanvas.height=routeCanvas.offsetHeight; }
+resizeRoute();
+new ResizeObserver(resizeRoute).observe(routeCanvas);
+
+let routeOffset = 0;
+function drawRoute(){
+  rCtx.fillStyle = '#F1F5F9';
+  rCtx.fillRect(0,0,rW,rH);
+  rCtx.strokeStyle = '#0EA5E9';
+  rCtx.lineWidth = 2;
+  rCtx.setLineDash([10, 8]);
+  rCtx.lineDashOffset = -routeOffset;
+
+  rCtx.beginPath();
+  const points = [
+    {x:rW*0.05,y:rH*0.7},{x:rW*0.2,y:rH*0.5},{x:rW*0.35,y:rH*0.6},
+    {x:rW*0.5,y:rH*0.3},{x:rW*0.65,y:rH*0.4},{x:rW*0.8,y:rH*0.25},{x:rW*0.95,y:rH*0.15}
+  ];
+  rCtx.moveTo(points[0].x, points[0].y);
+  for(let i=1;i<points.length;i++){
+    const cpX = (points[i-1].x + points[i].x)/2;
+    rCtx.quadraticCurveTo(cpX, points[i-1].y, points[i].x, points[i].y);
+  }
+  rCtx.stroke();
+  rCtx.setLineDash([]);
+
+  points.forEach((p,i)=>{
+    const pulse = Math.sin(Date.now()*0.003 + i)*0.3+0.7;
+    rCtx.beginPath();
+    rCtx.arc(p.x,p.y,6*pulse,0,Math.PI*2);
+    rCtx.fillStyle = i===0?'#F59E0B':'#0EA5E9';
+    rCtx.fill();
+    rCtx.beginPath();
+    rCtx.arc(p.x,p.y,12*pulse,0,Math.PI*2);
+    rCtx.fillStyle = `rgba(${i===0?'245,158,11':'14,165,233'},0.12)`;
+    rCtx.fill();
+  });
+
+  routeOffset += 0.5;
+  requestAnimationFrame(drawRoute);
+}
+drawRoute();
+
+/* BENTO WAVE */
+const bentoWave = document.getElementById('bentoWave');
+if(bentoWave){
+  const bCtx = bentoWave.getContext('2d');
+  let bW, bH;
+  function resizeBento(){ bW=bentoWave.width=bentoWave.offsetWidth; bH=bentoWave.height=bentoWave.offsetHeight; }
+  resizeBento();
+  new ResizeObserver(resizeBento).observe(bentoWave);
+  let bOffset = 0;
+  function drawBentoWave(){
+    bCtx.clearRect(0,0,bW,bH);
+    bCtx.strokeStyle = '#0EA5E9';
+    bCtx.lineWidth = 1.5;
+    bCtx.beginPath();
+    for(let x=0;x<bW;x+=3){
+      const y = bH/2 + Math.sin(x*0.03+bOffset)*15 + Math.sin(x*0.05+bOffset*1.5)*8;
+      if(x===0) bCtx.moveTo(x,y); else bCtx.lineTo(x,y);
+    }
+    bCtx.stroke();
+    bOffset += 0.03;
+    requestAnimationFrame(drawBentoWave);
+  }
+  drawBentoWave();
+}
+
+/* BEARING / GAUGE */
+const gaugeCanvas = document.getElementById('gaugeCanvas');
+const gCtx = gaugeCanvas.getContext('2d');
+const bearingChips = document.getElementById('bearingChips');
+const intensityRange = document.getElementById('intensityRange');
+const breatheBtn = document.getElementById('breatheBtn');
+const bearingLabel = document.getElementById('bearingLabel');
+const bearingArousal = document.getElementById('bearingArousal');
+const breathDots = document.querySelectorAll('.breath-dot');
+
+let scenario = "Glass elevator";
+let intensity = 3;
+let calmFactor = 0;
+let breathing = false;
+let breathInterval = null, breathPhase = 0;
+let gaugeAngle = -60;
+
+function drawGauge(){
+  const w = gaugeCanvas.width, h = gaugeCanvas.height;
+  gCtx.clearRect(0,0,w,h);
+  gCtx.beginPath();
+  gCtx.arc(w/2, h-10, 90, Math.PI, 0);
+  gCtx.strokeStyle = 'rgba(15,23,42,0.06)';
+  gCtx.lineWidth = 12;
+  gCtx.lineCap = 'round';
+  gCtx.stroke();
+
+  const grad = gCtx.createLinearGradient(20, h-10, w-20, h-10);
+  grad.addColorStop(0, '#F59E0B');
+  grad.addColorStop(1, '#0EA5E9');
+  gCtx.beginPath();
+  gCtx.arc(w/2, h-10, 90, Math.PI, 0);
+  gCtx.strokeStyle = grad;
+  gCtx.lineWidth = 12;
+  gCtx.lineCap = 'round';
+  gCtx.globalAlpha = 0.2;
+  gCtx.stroke();
+  gCtx.globalAlpha = 1;
+
+  const rad = (gaugeAngle * Math.PI) / 180;
+  const nx = w/2 + Math.cos(rad) * 80;
+  const ny = h-10 + Math.sin(rad) * 80;
+  gCtx.beginPath();
+  gCtx.moveTo(w/2, h-10);
+  gCtx.lineTo(nx, ny);
+  gCtx.strokeStyle = '#0F172A';
+  gCtx.lineWidth = 3;
+  gCtx.lineCap = 'round';
+  gCtx.stroke();
+
+  gCtx.beginPath();
+  gCtx.arc(w/2, h-10, 6, 0, Math.PI*2);
+  gCtx.fillStyle = '#0F172A';
+  gCtx.fill();
+  requestAnimationFrame(drawGauge);
+}
+drawGauge();
+
+function updateGaugeTarget(){
+  const base = 30 + intensity*12;
+  const eased = Math.round(base * (1 - calmFactor*0.75));
+  const arousal = Math.min(98, Math.max(8, eased));
+  bearingArousal.textContent = arousal + '%';
+  const targetAngle = -85 + ((100-arousal)/100)*170;
+  gaugeAngle += (targetAngle - gaugeAngle) * 0.08;
+}
+setInterval(updateGaugeTarget, 50);
+
+bearingChips.addEventListener('click', e=>{
+  const btn = e.target.closest('.bearing-chip');
+  if(!btn) return;
+  bearingChips.querySelectorAll('.bearing-chip').forEach(c=>c.classList.remove('is-active'));
+  btn.classList.add('is-active');
+  scenario = btn.dataset.scenario;
+  bearingLabel.textContent = scenario + ', intensity ' + intensity;
+});
+intensityRange.addEventListener('input', e=>{
+  intensity = parseInt(e.target.value,10);
+  bearingLabel.textContent = scenario + ', intensity ' + intensity;
+});
+
+const breathLabels = ["Breathe in…","Hold…","Breathe out…","Hold…"];
+breatheBtn.addEventListener('click', ()=>{
+  breathing = !breathing;
+  breatheBtn.classList.toggle('is-active', breathing);
+  bearingLabel.classList.toggle('is-breathing', breathing);
+  if(breathing){
+    calmFactor = 0;
+    breathPhase = 0;
+    breathDots.forEach((dot,i)=> dot.classList.toggle('is-active', i===0));
+    bearingLabel.textContent = breathLabels[0];
+    if(breathInterval) clearInterval(breathInterval);
+    breathInterval = setInterval(()=>{
+      breathPhase = (breathPhase+1)%4;
+      breathDots.forEach((dot,i)=> dot.classList.toggle('is-active', i===breathPhase));
+      bearingLabel.textContent = breathLabels[breathPhase];
+      calmFactor = Math.min(1, calmFactor + 0.22);
+    }, 3200);
+  } else {
+    clearInterval(breathInterval);
+    breathDots.forEach(d=>d.classList.remove('is-active'));
+    calmFactor = Math.max(0, calmFactor - 0.4);
+    bearingLabel.textContent = scenario + ', intensity ' + intensity;
+    bearingLabel.classList.remove('is-breathing');
+  }
+});
+
+/* TELEMETRY CHARTS */
+function initTelemetryCharts(){
+  document.querySelectorAll('.telemetryCanvas').forEach(canvas=>{
+    const ctx = canvas.getContext('2d');
+    const colorMap = {
+      'alert': '#F59E0B',
+      'neural': '#6366F1',
+      'accent': '#0EA5E9'
+    };
+    const color = colorMap[canvas.dataset.color] || '#0EA5E9';
+    const points = canvas.dataset.points.split(',').map(Number);
+    let w, h;
+    function resize(){ w=canvas.width=canvas.offsetWidth; h=canvas.height=canvas.offsetHeight; }
+    resize();
+    new ResizeObserver(resize).observe(canvas);
+    let progress = 0;
+    function draw(){
+      ctx.clearRect(0,0,w,h);
+      const maxVal = Math.max(...points);
+      const stepX = w/(points.length-1);
+      ctx.beginPath();
+      ctx.moveTo(0, h);
+      points.forEach((p,i)=>{
+        const x = i*stepX;
+        const y = h - (p/maxVal)*h*0.8 - 4;
+        const easedX = x * Math.min(1, progress);
+        if(i===0) ctx.lineTo(easedX, y); else ctx.lineTo(easedX, y);
+      });
+      const lastX = (points.length-1)*stepX * Math.min(1, progress);
+      ctx.lineTo(lastX, h);
+      ctx.closePath();
+      ctx.fillStyle = color + '12';
+      ctx.fill();
+
+      ctx.beginPath();
+      points.forEach((p,i)=>{
+        const x = i*stepX * Math.min(1, progress);
+        const y = h - (p/maxVal)*h*0.8 - 4;
+        if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+      });
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      if(progress<1){ progress += 0.015; requestAnimationFrame(draw); }
+    }
+    const io = new IntersectionObserver(entries=>{
+      if(entries[0].isIntersecting){ draw(); io.unobserve(canvas); }
+    });
+    io.observe(canvas);
+  });
+}
+initTelemetryCharts();
+
+/* TELEMETRY COUNTERS */
+const telemetryCounters = document.querySelectorAll('.telemetry-num .counter');
+const counterIO = new IntersectionObserver(entries=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting){
+      const el = en.target;
+      const target = parseFloat(el.dataset.target);
+      const dur = 1400, start = performance.now();
+      function tick(now){
+        const p = Math.min(1,(now-start)/dur);
+        const eased = 1-Math.pow(1-p,3);
+        el.textContent = Math.round(target*eased);
+        if(p<1) requestAnimationFrame(tick);
+        else el.textContent = target;
+      }
+      requestAnimationFrame(tick);
+      counterIO.unobserve(el);
+    }
+  });
+}, {threshold:0.4});
+telemetryCounters.forEach(el=>counterIO.observe(el));
+
+/* DISPATCH DRAG */
+const dispatchTrack = document.getElementById('dispatchTrack');
+let isDown=false, startX=0, scrollStart=0;
+dispatchTrack.addEventListener('pointerdown', e=>{ isDown=true; startX=e.clientX; scrollStart=dispatchTrack.scrollLeft; dispatchTrack.setPointerCapture(e.pointerId); dispatchTrack.style.cursor='grabbing'; });
+dispatchTrack.addEventListener('pointermove', e=>{ if(!isDown) return; dispatchTrack.scrollLeft = scrollStart - (e.clientX-startX); });
+dispatchTrack.addEventListener('pointerup', ()=>{ isDown=false; dispatchTrack.style.cursor='grab'; });
+dispatchTrack.addEventListener('pointercancel', ()=>{ isDown=false; dispatchTrack.style.cursor='grab'; });
+
+/* FAQ */
+document.querySelectorAll('.faq-row').forEach(row=>{
+  const q = row.querySelector('.faq-q');
+  const a = row.querySelector('.faq-a');
+  q.addEventListener('click', ()=>{
+    const isOpen = row.classList.contains('is-open');
+    document.querySelectorAll('.faq-row').forEach(other=>{
+      if(other!==row && other.classList.contains('is-open')){
+        other.classList.remove('is-open');
+        other.querySelector('.faq-q').setAttribute('aria-expanded','false');
+        other.querySelector('.faq-a').style.maxHeight='0px';
+      }
+    });
+    row.classList.toggle('is-open', !isOpen);
+    q.setAttribute('aria-expanded', (!isOpen).toString());
+    a.style.maxHeight = isOpen ? '0px' : a.scrollHeight+'px';
+  });
+});
+
+/* FORMS */
+document.getElementById('contactForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  document.getElementById('formSuccess').classList.add('is-shown');
+  e.target.reset();
+});
+document.getElementById('newsletterForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  document.getElementById('newsletterSuccess').classList.add('is-shown');
+  e.target.reset();
+});
+
+/* SCROLL SKEW */
+let lastScroll = 0, scrollVelocity = 0;
+if(!reduceMotion){
+  window.addEventListener('scroll', ()=>{
+    scrollVelocity = window.scrollY - lastScroll;
+    lastScroll = window.scrollY;
+    const skew = Math.max(-2, Math.min(2, scrollVelocity * 0.05));
+    document.querySelectorAll('.section h2').forEach(el=>{ el.style.transform = `skewY(${skew}deg)`; });
+  }, {passive:true});
+  setInterval(()=>{
+    document.querySelectorAll('.section h2').forEach(el=>{ el.style.transform = 'skewY(0deg)'; });
+  }, 150);
+}
+
+})();
+</script>
 </body>
 </html>
